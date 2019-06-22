@@ -21,20 +21,12 @@ ActiveRecord::Schema.define(version: 2019_06_21_221923) do
     t.index ["name"], name: "index_buildings_on_name", unique: true
   end
 
-  create_table "items", force: :cascade do |t|
-    t.string "name"
-    t.integer "room_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_items_on_name", unique: true
-    t.index ["room_id"], name: "index_items_on_room_id"
-  end
-
   create_table "rooms", force: :cascade do |t|
     t.string "name"
     t.string "code"
     t.integer "floor"
     t.integer "max_capacity"
+    t.string "equipment"
     t.integer "building_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,11 +37,12 @@ ActiveRecord::Schema.define(version: 2019_06_21_221923) do
 
   create_table "users", force: :cascade do |t|
     t.string "name"
-    t.string "email"
+    t.string "email", null: false
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

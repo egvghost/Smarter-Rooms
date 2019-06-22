@@ -5,6 +5,7 @@ class CreateRooms < ActiveRecord::Migration[5.2]
       t.string :code
       t.integer :floor
       t.integer :max_capacity
+      t.string :equipment
       t.belongs_to :building
       t.timestamps
     end
