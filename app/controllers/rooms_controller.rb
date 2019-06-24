@@ -15,6 +15,7 @@ class RoomsController < ApplicationController
   # GET /rooms/new
   def new
     @room = Room.new
+    @buildings = Building.all
   end
 
   # GET /rooms/1/edit
@@ -69,6 +70,6 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.require(:room).permit(:name, :code, :floor, :max_capacity)
+      params.require(:room).permit(:name, :code, :floor, :max_capacity, :building_id)
     end
 end

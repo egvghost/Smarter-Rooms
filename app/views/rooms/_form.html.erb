@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :building %>
+    <%= form.collection_select(:building_id, @buildings, :id, :name) %>
+  </div>
+
+  <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
