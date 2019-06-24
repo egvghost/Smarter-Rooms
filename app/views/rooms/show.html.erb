@@ -20,5 +20,10 @@
   <%= @room.max_capacity %>
 </p>
 
+<p>
+  <strong>Status:</strong>
+  <%= @room.status(@room.code) %>
+</p>
+
 <%= link_to 'Edit', edit_room_path(@room) %> |
 <%= link_to 'Back', rooms_path %>
