@@ -20,6 +20,7 @@ class RoomsController < ApplicationController
 
   # GET /rooms/1/edit
   def edit
+    @buildings = Building.all
   end
 
   # POST /rooms
