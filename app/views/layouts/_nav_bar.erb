@@ -1,0 +1,38 @@
+<div class="header clearfix">
+  <nav class="navbar fixed-top navbar-light" style="background-color:#42698f; opacity:0.8; padding:1px;">
+    <a class="navbar-brand" href="#" style="font-size:14px;">
+      &nbsp; <%= image_tag "calendar.jpg", style:"height:50px; width:65px;" %>
+      Smarter Rooms
+    </a>
+      <ul class="nav nav-pills float-right">
+        <li class="nav-item">
+        <% if @home_selected_in_nav %>
+          <a class="btn btn-outline-primary" href="/">Home <span class="sr-only">(current)</span></a>
+        <% else %>
+          <a class="btn btn-outline-default" href="/">Home <span class="sr-only">(current)</span></a>
+        <% end %>
+        </li>
+        <li class="nav-item">
+        <% if @buildings_selected_in_nav %>
+          <a class="btn btn-outline-primary" href="/buildings" role="button">Buildings</a>
+        <% else %>
+          <a class="btn btn-outline-default" href="/buildings" role="button">Buildings</a>
+        <% end %>
+        </li>
+        <li class="nav-item">
+        <% if @rooms_selected_in_nav %>
+          <a class="btn btn-outline-primary" href="/rooms" role="button">Rooms</a>
+        <% else %>
+          <a class="btn btn-outline-default" href="/rooms" role="button">Rooms</a>
+        <% end %>
+        </li>
+        <li class="nav-item">
+          <% if @about_selected_in_nav %>
+            <a class="btn btn-outline-primary" href="/about" role="button">About</a>
+          <% else %>
+            <a class="btn btn-outline-default" href="/about" role="button">About</a>
+          <% end %>
+        </li>
+      </ul>
+  </nav>
+</div>
