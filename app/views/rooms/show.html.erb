@@ -1,17 +1,12 @@
 <div class="container">
 <p>
-  <strong>Name:</strong>
+  <strong>Room's Name:</strong>
   <%= @room.name %>
 </p>
 
 <p>
   <strong>Code:</strong>
   <%= @room.code %>
-</p>
-
-<p>
-  <strong>Floor:</strong>
-  <%= @room.floor %>
 </p>
 
 <p>
@@ -31,6 +26,16 @@
 <p>
   <strong>Status:</strong>
   <%= @room.status %>
+</p>
+
+<p>
+  <strong>Building:</strong>
+  <%= @room.building.name %>
+</p>
+
+<p>
+  <strong>Floor:</strong>
+  <%= @room.floor %>
 </p>
 
 <%= link_to 'Edit', edit_room_path(@room) %> |
