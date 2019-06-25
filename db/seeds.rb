@@ -42,3 +42,7 @@ b1.rooms.create(name: "Puente de la Mujer", code: "A214", floor: 2, max_capacity
 b1.rooms.create(name: "Catalinas", code: "A215", floor: 2, max_capacity: 4)
 b1.rooms.create(name: "La Boca", code: "A216", floor: 2, max_capacity: 6)
 b1.rooms.create(name: "Tilcara", code: "A217", floor: 2, max_capacity: 8)
+
+Accessory.create(name: "Projector")
+Accessory.create(name: "Board")
+Accessory.create(name: "Video conference")

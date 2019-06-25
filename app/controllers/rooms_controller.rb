@@ -16,11 +16,13 @@ class RoomsController < ApplicationController
   def new
     @room = Room.new
     @buildings = Building.all
+    @equipment = Accessory.all
   end
 
   # GET /rooms/1/edit
   def edit
     @buildings = Building.all
+    @equipment = Accessory.all
   end
 
   # POST /rooms
@@ -71,6 +73,6 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.require(:room).permit(:name, :code, :floor, :max_capacity, :equipment, :building_id)
+      params.require(:room).permit(:name, :code, :floor, :max_capacity, :building_id, accessory_ids:[])
     end
 end

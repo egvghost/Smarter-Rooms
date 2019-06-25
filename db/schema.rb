@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_21_221923) do
+ActiveRecord::Schema.define(version: 2019_06_25_171828) do
+
+  create_table "accessories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_accessories_on_name", unique: true
+  end
+
+  create_table "accessories_rooms", id: false, force: :cascade do |t|
+    t.integer "accessory_id"
+    t.integer "room_id"
+    t.index ["accessory_id"], name: "index_accessories_rooms_on_accessory_id"
+    t.index ["room_id"], name: "index_accessories_rooms_on_room_id"
+  end
 
   create_table "buildings", force: :cascade do |t|
     t.string "name"
@@ -26,7 +40,6 @@ ActiveRecord::Schema.define(version: 2019_06_21_221923) do
     t.string "code"
     t.integer "floor"
     t.integer "max_capacity"
-    t.string "equipment"
     t.integer "building_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

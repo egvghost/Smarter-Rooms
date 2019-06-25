@@ -16,7 +16,11 @@
 
 <p>
   <strong>Equipment:</strong>
-  <%= @room.equipment %>
+  <ul>
+    <% @room.accessories.each do |a|%>
+      <li><%= a.name %></li>
+    <% end %>
+  </ul>
 </p>
 
 <p>
