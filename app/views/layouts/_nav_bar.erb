@@ -4,6 +4,7 @@
       &nbsp; <%= image_tag "calendar.jpg", style:"height:50px; width:65px;" %>
       Smarter Rooms
     </a>
+    <% if logged_in? %>
       <ul class="nav nav-pills float-right">
         <li class="nav-item">
         <% if @home_selected_in_nav %>
@@ -41,5 +42,17 @@
           <% end %>
         </li>
       </ul>
+      <div class="py-2 d-none d-md-inline-block ui pointing dropdown link item">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+            <%=icon 'fa fas fa-user-circle', class: 'dropdown icon'%> 
+            <%=current_user.name%>
+          </button>
+          <div class="dropdown-menu">
+            <%= link_to 'Logout', logout_path, method: :delete, class: 'dropdown-item' %>
+          </div>
+        </div>
+      </div>  
+    <% end %>
   </nav>
 </div>
