@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:index, :destroy]
 	skip_before_action :logged_in_user, only: [:new, :create]
 
   # GET /users
@@ -20,6 +21,10 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    if !current_user.is_admin? && (@user.email != current_user.email)
+      flash[:warning] = 'A user can only modify their own data' 
+      redirect_to @user
+    end
   end
 
   # POST /users
@@ -42,6 +47,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -72,5 +78,12 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
+    end
+
+    def verify_if_admin_and_redirect_with_error_message_if_not 
+      unless current_user.is_admin?
+        flash[:danger] = 'You are not authorized to perform this action' 
+        render :show
+      end 
     end
 end

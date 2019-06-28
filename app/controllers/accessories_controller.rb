@@ -75,7 +75,7 @@ class AccessoriesController < ApplicationController
 
     def verify_if_admin_and_redirect_with_error_message_if_not 
       unless current_user.is_admin?
-        flash[:danger] = 'You are not authorized to perform that action' 
+        flash[:danger] = 'You are not authorized to perform this action' 
         redirect_to accessories_url
       end 
     end
