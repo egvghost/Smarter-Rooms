@@ -1,25 +1,7 @@
-<h1>Sign up</h1>
-<%= form_with model: @user, local: true do |f| %>
-    <% if @user.errors.any? %>
-        <p>The form contains <%= pluralize(@user.errors.count, "error") %></p>
-        <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-            <% end %>
-        </ul>
-    <% end %>
-    
-    <%= f.label :name %><br>
-    <%= f.text_field :name %><br>
+<div class="container">
+	<h1>New User</h1>
 
-    <%= f.label :email %><br>
-    <%= f.email_field :email %><br>
+	<%= render 'form', user: @user %>
 
-    <%= f.label :password %><br>
-    <%= f.password_field :password %><br>
-
-    <%= f.label :password_confirmation, "Confirmation" %><br>
-    <%= f.password_field :password_confirmation %><br><br><br>
-
-    <%= f.submit "Create my account" %>
-<% end %>
+	<%= link_to 'Back', users_path %>
+</div>
