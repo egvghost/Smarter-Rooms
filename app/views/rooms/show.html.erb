@@ -37,7 +37,8 @@
   <strong>Floor:</strong>
   <%= @room.floor %>
 </p>
-
-<%= link_to 'Edit', edit_room_path(@room) %> |
+<% if current_user.is_admin? %>
+  <%= link_to 'Edit', edit_room_path(@room) %> |
+<% end %>
 <%= link_to 'Back', rooms_path %>
 </div>

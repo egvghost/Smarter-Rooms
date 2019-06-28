@@ -1,0 +1,39 @@
+<%= form_with model: @user, local: true do |f| %>
+    <% if @user.errors.any? %>
+        <p>The form contains <%= pluralize(@user.errors.count, "error") %></p>
+        <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.email_field :email %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirmation" %><br>
+    <%= f.password_field :password_confirmation %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :status %> <br>
+    <%= f.check_box :status %>Active?<br><br><br>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create account" %>
+  </div>
+<% end %>

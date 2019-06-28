@@ -18,14 +18,17 @@
         <td><%= building.address %></td>
         <td><%= building.coordinates %></td>
         <td><%= link_to 'Show', building %></td>
-        <td><%= link_to 'Edit', edit_building_path(building) %></td>
-        <td><%= link_to 'Destroy', building, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.is_admin? %>
+          <td><%= link_to 'Edit', edit_building_path(building) %></td>
+          <td><%= link_to 'Destroy', building, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Building', new_building_path %>
+<% if current_user.is_admin? %>
+  <%= link_to 'New Building', new_building_path %>
+<% end %>
 </div>

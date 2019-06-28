@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show, :edit, :update, :destroy]
+  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /rooms
   # GET /rooms.json
@@ -74,5 +75,12 @@ class RoomsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
       params.require(:room).permit(:name, :code, :floor, :max_capacity, :building_id, accessory_ids:[])
+    end
+
+    def verify_if_admin_and_redirect_with_error_message_if_not 
+      unless current_user.is_admin?
+        flash[:danger] = 'You are not authorized to perform that action' 
+        redirect_to rooms_url
+      end 
     end
 end

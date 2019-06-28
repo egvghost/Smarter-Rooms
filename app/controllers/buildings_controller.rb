@@ -1,5 +1,6 @@
 class BuildingsController < ApplicationController
   before_action :set_building, only: [:show, :edit, :update, :destroy]
+  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:new, :edit, :create, :update, :destroy]
 
   # GET /buildings
   # GET /buildings.json
@@ -70,5 +71,12 @@ class BuildingsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def building_params
       params.require(:building).permit(:name, :address, :coordinates)
+    end
+
+    def verify_if_admin_and_redirect_with_error_message_if_not 
+      unless current_user.is_admin?
+        flash[:danger] = 'You are not authorized to perform that action' 
+        redirect_to buildings_url
+      end 
     end
 end

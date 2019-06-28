@@ -27,13 +27,22 @@
           <a class="btn btn-outline-default" href="/rooms" role="button">Rooms</a>
         <% end %>
         </li>
+        <% if current_user.is_admin? %>
+          <li class="nav-item">
+          <% if @accessories_selected_in_nav %>
+            <a class="btn btn-outline-primary" href="/accessories" role="button">Equipment</a>
+          <% else %>
+            <a class="btn btn-outline-default" href="/accessories" role="button">Equipment</a>
+          <% end %>
+          </li>
         <li class="nav-item">
-        <% if @accessories_selected_in_nav %>
-          <a class="btn btn-outline-primary" href="/accessories" role="button">Equipment</a>
-        <% else %>
-          <a class="btn btn-outline-default" href="/accessories" role="button">Equipment</a>
+          <% if @users_selected_in_nav %>
+            <a class="btn btn-outline-primary" href="/users" role="button">Users</a>
+          <% else %>
+            <a class="btn btn-outline-default" href="/users" role="button">Users</a>
+          <% end %>
+          </li>
         <% end %>
-        </li>
         <li class="nav-item">
           <% if @about_selected_in_nav %>
             <a class="btn btn-outline-primary" href="/about" role="button">About</a>
