@@ -1,23 +1,19 @@
-<div class="container">
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @user.name %>
-  </p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
 
-  <p>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </p>
+<p>
+  <strong>Admin:</strong>
+  <%= @user.admin %>
+</p>
 
-  <p>
-    <strong>Admin:</strong>
-    <%= @user.admin %>
-  </p>
-
-  <% if current_user.is_admin? %>
-    <%= link_to 'Back', users_path %>
-  <% end %>
-  <%= link_to 'Edit', edit_user_path(@user) %>
-
-</div>
+<% if current_user.is_admin? %>
+  <%= link_to 'Back', users_path %>
+<% end %>
+<%= link_to 'Edit', edit_user_path(@user) %>
