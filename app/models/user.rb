@@ -5,6 +5,8 @@ class User < ApplicationRecord
 	validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 	validates :password, presence: true, length: { minimum: 8 } 
 	has_secure_password
+	has_many :reservations
+	has_many :rooms, through: :reservations
 
 	def is_admin? 
 		self.admin

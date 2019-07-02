@@ -1,0 +1,40 @@
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:800px; text-align:center"><b>My active reservations</b></h5>
+<table class="table table-striped table-hover" style="width:800px;">
+  <thead style="background-color:rgba(0, 151, 255, 0.5)">
+    <tr>
+      <th style="width:35%;">Room</th>
+      <th style="width:30%;">Reserved from</th>
+      <th style="width:30%;">Reserved until</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody style="background-color:rgba(0, 181, 255, 0.5)">
+    <% current_user.reservations.active.sort_by {|item| item.id}.reverse.each do |reservation| %>
+      <tr>
+        <td><%= link_to reservation.room.name, reservation.room %></td>
+        <td><%= reservation.valid_from %></td>
+        <td><%= reservation.valid_to %></td>
+        <td><%= link_to 'Cancel', reservation, method: :delete, :class => "btn btn-sm btn-danger", data: { confirm: 'This reservation will be canceled. Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table><br><br>
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:800px; text-align:center"><b>My reservations history</b></h5>
+<table class="table table-striped table-hover" style="width:800px;">
+  <thead style="background-color:rgba(0, 151, 255, 0.5)">
+    <tr>
+      <th style="width:35%;">Room</th>
+      <th style="width:30%;">Reserved from</th>
+      <th style="width:30%;">Reserved until</th>
+    </tr>
+  </thead>
+  <tbody style="background-color:rgba(0, 181, 255, 0.5)">
+    <% current_user.reservations.inactive.sort_by {|item| item.id}.reverse.each do |reservation| %>
+      <tr>
+        <td><%= link_to reservation.room.name, reservation.room %></td>
+        <td><%= reservation.valid_from %></td>
+        <td><%= reservation.valid_to %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

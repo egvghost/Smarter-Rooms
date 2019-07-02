@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_28_135202) do
+ActiveRecord::Schema.define(version: 2019_07_01_202117) do
 
   create_table "accessories", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 2019_06_28_135202) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_buildings_on_name", unique: true
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.datetime "valid_from"
+    t.datetime "valid_to"
+    t.integer "user_id"
+    t.integer "room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_reservations_on_room_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|

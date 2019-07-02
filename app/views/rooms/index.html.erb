@@ -19,6 +19,7 @@
         <td><%= room.floor %></td>
         <td><%= room.max_capacity %></td>
         <td><%= link_to 'Show', room %></td>
+        <td><%= link_to 'Reserve', new_reservation_path(room_id: room.id), class: 'btn btn-sm btn-primary' %></td> &nbsp; &nbsp;
         <% if current_user.is_admin? %>
           <td><%= link_to 'Edit', edit_room_path(room) %></td>
           <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>

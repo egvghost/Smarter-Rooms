@@ -1,0 +1,28 @@
+<h3>Reservation for: <b><%= @room.name %></b></h3>
+<br>
+<% if current_user.reservations.active.where(room_id: @room.id).exists? %>
+  <p>You have an active reservation on this room:</p>
+  <p>From: <%= current_user.reservations.active.find_by(room_id: @room.id).valid_from %></p>
+  <p>Until: <%= current_user.reservations.active.find_by(room_id: @room.id).valid_to %></p>
+<% end %>
+<br>
+<p>New reservation:</p>
+
+<%= form_for @reservation, utl: {action: "create"} do |form| %>
+  <%= hidden_field_tag(:room_id, @room.id) %>
+  
+  <div class="field">
+    <%= form.label :valid_from %>: 
+    <%= form.datetime_select :valid_from %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valid_until %>: 
+    <%= form.datetime_select :valid_to %>
+  </div>
+
+  <%= form.submit "Confirm", class: 'btn btn-sm btn-success' %>
+<% end %>
+<br><br><br>
+<%= link_to "Back", rooms_path, class: 'btn btn-sm btn-secondary'%>
+<%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-primary'%>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reservations, only: [:index, :show, :new, :create, :destroy]
   resources :accessories
   resources :rooms
   resources :buildings
