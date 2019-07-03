@@ -36,8 +36,8 @@
   <strong>Floor:</strong>
   <%= @room.floor %>
 </p>
-<% if current_user.is_admin? %>
-  <%= link_to 'Edit', edit_room_path(@room) %> |
-<% end %>
 <%= link_to 'Back', rooms_path %> | 
-<%= link_to 'Reserve', new_reservation_path(room_id: @room.id), class: 'btn btn-sm btn-primary' %>
+<%= link_to 'Reserve', new_reservation_path(room_id: @room.id), class: 'btn btn-sm btn-primary' %> | 
+<% if current_user.is_admin? %>
+  <%= link_to 'Edit', edit_room_path(@room) %>
+<% end %>

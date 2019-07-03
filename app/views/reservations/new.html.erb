@@ -1,28 +1,56 @@
-<h3>Reservation for: <b><%= @room.name %></b></h3>
+<h3>New reservation:</h3>
 <br>
-<% if current_user.reservations.active.where(room_id: @room.id).exists? %>
-  <p>You have an active reservation on this room:</p>
-  <p>From: <%= current_user.reservations.active.find_by(room_id: @room.id).valid_from %></p>
-  <p>Until: <%= current_user.reservations.active.find_by(room_id: @room.id).valid_to %></p>
-<% end %>
-<br>
-<p>New reservation:</p>
+<div class="row" style="align-items:center">
+  <div class="col-6"> 
+    <div class="card" style="background-color:rgba(0, 121, 203, 0.8)">  
+      <div class="container">
+        <%= form_for @reservation, utl: {action: "create"} do |form| %>
+          <br>
+          <%= hidden_field_tag(:room_id, @room.id) %>
+          
+          <div class="field">
+            <%= form.label :start_time%>: 
+            <%= form.datetime_select :valid_from %>
+          </div>
 
-<%= form_for @reservation, utl: {action: "create"} do |form| %>
-  <%= hidden_field_tag(:room_id, @room.id) %>
-  
-  <div class="field">
-    <%= form.label :valid_from %>: 
-    <%= form.datetime_select :valid_from %>
+          <div class="field">
+            <%= form.label :end_time %>: &nbsp;
+            <%= form.datetime_select :valid_to %>
+          </div>
+          <br>
+          <div class="field">
+            <%= form.label :attendants %>: 
+            <%= form.number_field :attendants, min: 0 %>
+          </div>
+          <div style="float: right;">
+            <%= form.submit "Confirm", class: 'btn btn-sm btn-success' %>
+          </div>
+          <br><br>
+        <% end %>
+      </div>
+    </div> 
   </div>
-
-  <div class="field">
-    <%= form.label :valid_until %>: 
-    <%= form.datetime_select :valid_to %>
+  <div class="col-6">
+    <div class="card" style="background-color:rgba(0, 121, 203, 0.8)">
+      <div class="container">
+        <br>
+        <div>Room's Name: <strong><%= @room.name %></strong></div>
+        <div>Code: <strong><%= @room.code %></strong></div>
+        <div>Building: <strong><%= @room.building.name %></strong></div>
+        <div>Floor: <strong><%= @room.floor %></strong></div>
+        <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
+        <div>Current status: <strong><%= @room.status %></strong></div>
+        <div>Available equipment: 
+          <ul>
+            <% @room.accessories.each do |a|%>
+              <li><strong><%= a.name %></strong></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <%= form.submit "Confirm", class: 'btn btn-sm btn-success' %>
-<% end %>
+</div>
 <br><br><br>
 <%= link_to "Back", rooms_path, class: 'btn btn-sm btn-secondary'%>
 <%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-primary'%>

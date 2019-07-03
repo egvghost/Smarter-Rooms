@@ -9,6 +9,11 @@ class ReservationsController < ApplicationController
 
   def new
     @reservation = Reservation.new
+    if current_user.reservations.active.where(room_id: @room.id).exists?
+      flash[:info] = "You have an active reservation on this room 
+      from: #{current_user.reservations.active.find_by(room_id: @room.id).valid_from} 
+      to: #{current_user.reservations.active.find_by(room_id: @room.id).valid_to}"
+    end
   end
 
   def create
@@ -17,7 +22,7 @@ class ReservationsController < ApplicationController
     @reservation.user = current_user
 
     if @reservation.save
-      redirect_to @reservation, notice: "You have successfully reserved #{@room.name}"
+      redirect_to @reservation, notice: "You have successfully reserved room '#{@room.name}'."
     else
       redirect_to rooms_path, notice: "There was an error performing the operation. #{@reservation.errors.first.last}"
     end
