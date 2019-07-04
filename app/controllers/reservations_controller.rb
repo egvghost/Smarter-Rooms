@@ -17,7 +17,7 @@ class ReservationsController < ApplicationController
   def new
     @reservation = Reservation.new
     if current_user.reservations.active.where(room_id: @room.id).exists?
-      flash[:info] = "You have an active reservation on this room 
+      flash[:info] = "You already have an active reservation on this room 
       from: #{current_user.reservations.active.find_by(room_id: @room.id).valid_from} 
       to: #{current_user.reservations.active.find_by(room_id: @room.id).valid_to}"
     end
