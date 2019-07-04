@@ -5,6 +5,7 @@ class BuildingsController < ApplicationController
   # GET /buildings
   # GET /buildings.json
   def index
+    @buildings_selected_in_nav = true
     @buildings = Building.all
   end
 
@@ -29,9 +30,11 @@ class BuildingsController < ApplicationController
 
     respond_to do |format|
       if @building.save
-        format.html { redirect_to @building, notice: 'Building was successfully created.' }
+        flash[:success] = "Building was successfully created."
+        format.html { redirect_to @building }
         format.json { render :show, status: :created, location: @building }
       else
+        flash[:danger] = "There was an error performing the operation. #{@building.errors.first.last}"
         format.html { render :new }
         format.json { render json: @building.errors, status: :unprocessable_entity }
       end
@@ -43,9 +46,11 @@ class BuildingsController < ApplicationController
   def update
     respond_to do |format|
       if @building.update(building_params)
-        format.html { redirect_to @building, notice: 'Building was successfully updated.' }
+        flash[:success] = "Building was successfully updated."
+        format.html { redirect_to @building }
         format.json { render :show, status: :ok, location: @building }
       else
+        flash[:danger] = "There was an error performing the operation. #{@building.errors.first.last}"
         format.html { render :edit }
         format.json { render json: @building.errors, status: :unprocessable_entity }
       end
@@ -57,7 +62,8 @@ class BuildingsController < ApplicationController
   def destroy
     @building.destroy
     respond_to do |format|
-      format.html { redirect_to buildings_url, notice: 'Building was successfully destroyed.' }
+      flash[:success] = "Building was successfully deleted."
+      format.html { redirect_to buildings_url }
       format.json { head :no_content }
     end
   end
@@ -75,7 +81,7 @@ class BuildingsController < ApplicationController
 
     def verify_if_admin_and_redirect_with_error_message_if_not 
       unless current_user.is_admin?
-        flash[:danger] = 'You are not authorized to perform this action' 
+        flash[:danger] = "You are not authorized to perform this action."
         redirect_to buildings_url
       end 
     end

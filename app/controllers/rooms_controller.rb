@@ -5,7 +5,12 @@ class RoomsController < ApplicationController
   # GET /rooms
   # GET /rooms.json
   def index
-    @rooms = Room.all
+    @rooms_selected_in_nav = true
+    if current_user.is_admin?
+      @rooms = Room.all
+    else
+      @rooms = Room.all.where(active: true)
+    end
   end
 
   # GET /rooms/1
@@ -33,9 +38,11 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: 'Room was successfully created.' }
+        flash[:success] = "Room was successfully created."
+        format.html { redirect_to @room }
         format.json { render :show, status: :created, location: @room }
       else
+        flash[:danger] = "There was an error performing the operation. #{@room.errors.first.last}"
         format.html { render :new }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
@@ -47,9 +54,11 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to @room, notice: 'Room was successfully updated.' }
+        flash[:success] = "Room was successfully updated."
+        format.html { redirect_to @room }
         format.json { render :show, status: :ok, location: @room }
       else
+        flash[:danger] = "There was an error performing the operation. #{@room.errors.first.last}"
         format.html { render :edit }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
@@ -61,7 +70,8 @@ class RoomsController < ApplicationController
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: 'Room was successfully destroyed.' }
+      flash[:success] = "Room was successfully deleted."
+      format.html { redirect_to rooms_url}
       format.json { head :no_content }
     end
   end
@@ -74,12 +84,12 @@ class RoomsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def room_params
-      params.require(:room).permit(:name, :code, :floor, :max_capacity, :building_id, accessory_ids:[])
+      params.require(:room).permit(:name, :code, :floor, :max_capacity, :active, :building_id, accessory_ids:[])
     end
 
     def verify_if_admin_and_redirect_with_error_message_if_not 
       unless current_user.is_admin?
-        flash[:danger] = 'You are not authorized to perform this action' 
+        flash[:danger] = "You are not authorized to perform this action."
         redirect_to rooms_url
       end 
     end

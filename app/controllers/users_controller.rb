@@ -6,12 +6,17 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    @users_selected_in_nav = true
     @users = User.all
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    if @user.email != current_user.email
+      flash[:warning] = "You are not authorized to see other users information."
+      redirect_to current_user
+    end
   end
 
   # GET /users/new
@@ -22,7 +27,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     if !current_user.is_admin? && (@user.email != current_user.email)
-      flash[:warning] = 'A user can only modify their own data' 
+      flash[:warning] = "A user can only modify their own data."
       redirect_to @user
     end
   end
@@ -35,9 +40,11 @@ class UsersController < ApplicationController
     respond_to do |format|
 			if @user.save
 				log_in @user
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        flash[:success] = "User was successfully created."
+        format.html { redirect_to @user }
         format.json { render :show, status: :created, location: @user }
       else
+        flash[:danger] = "There was an error performing the operation. #{@user.errors.first.last}"
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -50,9 +57,11 @@ class UsersController < ApplicationController
     params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        flash[:success] = "User information was successfully updated."
+        format.html { redirect_to @user }
         format.json { render :show, status: :ok, location: @user }
       else
+        flash[:danger] = "There was an error performing the operation. #{@user.errors.first.last}"
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -64,7 +73,8 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      flash[:success] = "User was successfully deleted."
+      format.html { redirect_to users_url }
       format.json { head :no_content }
     end
   end
@@ -82,8 +92,8 @@ class UsersController < ApplicationController
 
     def verify_if_admin_and_redirect_with_error_message_if_not 
       unless current_user.is_admin?
-        flash[:danger] = 'You are not authorized to perform this action' 
-        render :show
+        flash[:danger] = "You are not authorized to perform this action."
+        redirect_to current_user
       end 
     end
 end

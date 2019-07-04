@@ -5,6 +5,7 @@ class AccessoriesController < ApplicationController
   # GET /accessories
   # GET /accessories.json
   def index
+    @accessories_selected_in_nav = true
     @accessories = Accessory.all
   end
 
@@ -29,9 +30,11 @@ class AccessoriesController < ApplicationController
 
     respond_to do |format|
       if @accessory.save
-        format.html { redirect_to @accessory, notice: 'Accessory was successfully created.' }
+        flash[:success] = "Accessory was successfully created."
+        format.html { redirect_to @accessory }
         format.json { render :show, status: :created, location: @accessory }
       else
+        flash[:danger] = "There was an error performing the operation. #{@accessory.errors.first.last}"
         format.html { render :new }
         format.json { render json: @accessory.errors, status: :unprocessable_entity }
       end
@@ -43,9 +46,11 @@ class AccessoriesController < ApplicationController
   def update
     respond_to do |format|
       if @accessory.update(accessory_params)
-        format.html { redirect_to @accessory, notice: 'Accessory was successfully updated.' }
+        flash[:success] = "Accessory was successfully updated."
+        format.html { redirect_to @accessory }
         format.json { render :show, status: :ok, location: @accessory }
       else
+        flash[:danger] = "There was an error performing the operation. #{@accessory.errors.first.last}"
         format.html { render :edit }
         format.json { render json: @accessory.errors, status: :unprocessable_entity }
       end
@@ -57,7 +62,8 @@ class AccessoriesController < ApplicationController
   def destroy
     @accessory.destroy
     respond_to do |format|
-      format.html { redirect_to accessories_url, notice: 'Accessory was successfully destroyed.' }
+      flash[:success] = "Accessory was successfully deleted."
+      format.html { redirect_to accessories_url }
       format.json { head :no_content }
     end
   end
@@ -75,7 +81,7 @@ class AccessoriesController < ApplicationController
 
     def verify_if_admin_and_redirect_with_error_message_if_not 
       unless current_user.is_admin?
-        flash[:danger] = 'You are not authorized to perform this action' 
+        flash[:danger] = "You are not authorized to perform this action."
         redirect_to accessories_url
       end 
     end

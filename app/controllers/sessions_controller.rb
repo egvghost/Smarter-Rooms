@@ -8,11 +8,12 @@ class SessionsController < ApplicationController
     email = params[:session][:email].downcase
     pwd = params[:session][:password]
     user = User.find_by(email: email)
-    if user && user.authenticate(pwd) #primero chequea que exista el user y después autentica
+    if user && user.authenticate(pwd)
+      flash[:success] = "Successful login."
       log_in user
       redirect_to user
     else
-      flash[:danger] = 'Invalid email/password combination'
+      flash[:danger] = "Invalid email/password combination."
       redirect_to login_url
     end
   end
