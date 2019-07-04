@@ -54,7 +54,7 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        flash[:success] = "Room was successfully updated."
+        flash[:success] = "Room information was successfully updated."
         format.html { redirect_to @room }
         format.json { render :show, status: :ok, location: @room }
       else
