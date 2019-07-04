@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_03_133430) do
+ActiveRecord::Schema.define(version: 2019_07_03_153449) do
 
   create_table "accessories", force: :cascade do |t|
     t.string "name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_07_03_133430) do
     t.integer "building_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "active"
     t.index ["building_id"], name: "index_rooms_on_building_id"
     t.index ["code"], name: "index_rooms_on_code", unique: true
     t.index ["name"], name: "index_rooms_on_name", unique: true

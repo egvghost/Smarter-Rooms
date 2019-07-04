@@ -40,6 +40,11 @@
     <%= form.label :equipment %> <br>
     <%= form.collection_check_boxes(:accessory_ids, @equipment, :id, :name) %>
   </div>
+    
+  <div class="field">
+    <%= form.label :active %><br>
+    <%= form.check_box :active %><br>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
