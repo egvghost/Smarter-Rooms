@@ -1,7 +1,14 @@
 class ReservationsController < ApplicationController
   before_action :set_room, only: [:new, :create]
-  
+  before_action :verify_if_active_and_redirect_with_error_message_if_not, only: [:new, :create]
+  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:all]
+
   def index
+  end
+
+  def all
+    @reservations_selected_in_nav = true
+    @reservations = Reservation.all
   end
 
   def show
@@ -22,16 +29,19 @@ class ReservationsController < ApplicationController
     @reservation.user = current_user
 
     if @reservation.save
-      redirect_to @reservation, notice: "You have successfully reserved room '#{@room.name}'."
+      flash[:success] = "You have successfully reserved room '#{@room.name}'."
+      redirect_to @reservation
     else
-      redirect_to rooms_path, notice: "There was an error performing the operation. #{@reservation.errors.first.last}"
+      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.first.last}"
+      redirect_back fallback_location: rooms_path
     end
   end
 
   def destroy
     @reservation = Reservation.find(params[:id]).destroy
     respond_to do |format|
-      format.html { redirect_to reservations_url, notice: 'Reservation was successfully canceled.' }
+      flash[:success] = "Reservation was successfully canceled."
+      format.html { redirect_back fallback_location: reservations_url }
       format.json { head :no_content }
     end
   end
@@ -46,6 +56,20 @@ class ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservation).permit(:valid_from, :valid_to, :room_id, :user_id, :active)
     #whitelist creada para permitir SÓLO los parámetros listados, durante el POST del form
+  end
+
+  def verify_if_active_and_redirect_with_error_message_if_not 
+    unless @room.active
+      flash[:danger] = "Room '#{@room.name}' is out of service at this moment. Please choose another room."
+      redirect_to rooms_url
+    end 
+  end
+
+  def verify_if_admin_and_redirect_with_error_message_if_not 
+    unless current_user.is_admin?
+      flash[:danger] = "You are not authorized to perform this action."
+      redirect_to reservations_url
+    end 
   end
   
 end

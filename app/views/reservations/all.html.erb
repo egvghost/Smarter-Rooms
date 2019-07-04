@@ -1,0 +1,23 @@
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1000px; text-align:center"><b>All active reservations</b></h5>
+<table class="table table-striped table-hover" style="width:1000px;">
+  <thead style="background-color:rgba(0, 151, 255, 0.5)">
+    <tr>
+      <th style="width:15%;">Room</th>
+      <th style="width:22%;">User</th>
+      <th style="width:22%;">Reserved from</th>
+      <th style="width:22%;">Reserved until</th>
+      <th Style="text-align:center;">Action</th>
+    </tr>
+  </thead>
+  <tbody style="background-color:rgba(0, 181, 255, 0.5)">
+    <% @reservations.active.sort_by {|item| item.id}.reverse.each do |reservation| %>
+      <tr>
+        <td><%= link_to reservation.room.name, reservation.room %></td>
+        <td><%= reservation.user.name %></td>
+        <td><%= reservation.valid_from %></td>
+        <td><%= reservation.valid_to %></td>
+        <td Style="text-align:center;"><%= link_to 'Cancel Reservation', reservation, method: :delete, :class => "btn btn-sm btn-danger", data: { confirm: 'This reservation will be canceled. Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table><br><br>

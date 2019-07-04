@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :rooms
   resources :buildings
   resources :users
+  get '/all_reservations', to: 'reservations#all'
   root 'static_pages#home'
   get '/about', to: 'static_pages#about'
   get '/signup', to: 'users#new' 
