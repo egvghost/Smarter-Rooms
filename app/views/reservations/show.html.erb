@@ -1,2 +1,22 @@
-<h1>Reservations#show</h1>
-<p>Find me in app/views/reservations/show.html.erb</p>
+<h3>Reservation confirmed for '<%= @reservation.user.name %>':</h3><br>
+<div class="col-5 center"> 
+  <div class="card" style="background-color:rgba(0, 121, 203, 0.8); padding:30px;">
+    <div class="container">
+      <div>Room's Name: <strong><%= @room.name %></strong></div>
+      <div>Code: <strong><%= @room.code %></strong></div>
+      <div>Building: <strong><%= @room.building.name %></strong></div>
+      <div>Floor: <strong><%= @room.floor %></strong></div>
+      <div>Available equipment: 
+        <ul>
+          <% @room.accessories.each do |a|%>
+            <li><strong><%= a.name %></strong></li>
+          <% end %>
+        </ul>
+      </div>
+      <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
+      <div>Expected attendants: <strong><%= @reservation.attendants %></strong></div>
+      <div>Start time: <strong><%= @reservation.valid_from %></strong></div>
+      <div>End time: <strong><%= @reservation.valid_to %></strong></div>
+    </div>
+  </div>
+</div>

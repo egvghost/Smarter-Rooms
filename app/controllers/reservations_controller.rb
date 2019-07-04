@@ -12,6 +12,11 @@ class ReservationsController < ApplicationController
   end
 
   def show
+    @reservation = Reservation.find(params[:id])
+    if (@reservation.attendants? && @reservation.room.max_capacity? && @reservation.attendants > @reservation.room.max_capacity)
+      flash[:warning] = "Take into consideration that there might not be enough sits for all attendants."
+    end
+    @room = @reservation.room
   end
 
   def new
@@ -30,7 +35,7 @@ class ReservationsController < ApplicationController
 
     if @reservation.save
       flash[:success] = "You have successfully reserved room '#{@room.name}'."
-      redirect_to @reservation
+      render :show
     else
       flash[:danger] = "There was an error performing the operation. #{@reservation.errors.first.last}"
       redirect_back fallback_location: rooms_path
@@ -54,7 +59,7 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.require(:reservation).permit(:valid_from, :valid_to, :room_id, :user_id, :active)
+    params.require(:reservation).permit(:valid_from, :valid_to, :room_id, :user_id, :active, :attendants)
     #whitelist creada para permitir SÓLO los parámetros listados, durante el POST del form
   end
 
