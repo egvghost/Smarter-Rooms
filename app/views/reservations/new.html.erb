@@ -2,7 +2,7 @@
 <br>
 <div class="row" style="align-items:center">
   <div class="col-6"> 
-    <div class="card" style="background-color:rgba(0, 121, 203, 0.8)">  
+    <div class="card">  
       <div class="container">
         <%= form_for @reservation, utl: {action: "create"} do |form| %>
           <br>
@@ -31,7 +31,7 @@
     </div> 
   </div>
   <div class="col-6">
-    <div class="card" style="background-color:rgba(0, 121, 203, 0.8)">
+    <div class="card">
       <div class="container">
         <br>
         <div>Room's Name: <strong><%= @room.name %></strong></div>
