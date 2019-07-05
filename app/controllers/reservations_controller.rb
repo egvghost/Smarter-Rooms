@@ -13,16 +13,16 @@ class ReservationsController < ApplicationController
 
   def show
     @reservation = Reservation.find(params[:id])
-    if (@reservation.attendants? && @reservation.room.max_capacity? && @reservation.attendants > @reservation.room.max_capacity)
-      flash[:warning] = "Take into consideration that there might not be enough sits for all attendants."
-    end
     @room = @reservation.room
+    if (@reservation.attendants? && @room.max_capacity? && @reservation.attendants > @room.max_capacity)
+      flash.now[:warning] = "Take into consideration that there might not be enough sits for all attendants."
+    end
   end
 
   def new
     @reservation = Reservation.new
     if current_user.reservations.active.where(room_id: @room.id).exists?
-      flash[:info] = "You already have an active reservation on this room 
+      flash.now[:info] = "You already have an active reservation on this room 
       from: #{current_user.reservations.active.find_by(room_id: @room.id).valid_from} 
       to: #{current_user.reservations.active.find_by(room_id: @room.id).valid_to}"
     end
@@ -35,7 +35,7 @@ class ReservationsController < ApplicationController
 
     if @reservation.save
       flash[:success] = "You have successfully reserved room '#{@room.name}'."
-      render :show
+      redirect_to @reservation
     else
       flash[:danger] = "There was an error performing the operation. #{@reservation.errors.first.last}"
       redirect_back fallback_location: rooms_path
