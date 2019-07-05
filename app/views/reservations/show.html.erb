@@ -20,3 +20,8 @@
     </div>
   </div>
 </div>
+<br><br><br>
+<%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-success'%>
+<% if current_user.is_admin? %>
+  <%= link_to "All Reservations", all_reservations_path, class: 'btn btn-sm btn-primary'%>
+<% end %>
