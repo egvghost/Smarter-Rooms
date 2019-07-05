@@ -17,7 +17,7 @@
         <td><%= reservation.valid_from %></td>
         <td><%= reservation.valid_to %></td>
         <td Style="text-align:center;">
-          <%= link_to 'Show', reservation, :class => "btn btn-sm btn-primary" %>
+          <%= link_to 'Details', reservation, :class => "btn btn-sm btn-info" %>
           <%= link_to 'Cancel Reservation', reservation, method: :delete, :class => "btn btn-sm btn-danger", data: { confirm: 'This reservation will be canceled. Are you sure?' } %></td>
       </tr>
     <% end %>
