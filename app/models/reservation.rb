@@ -7,6 +7,7 @@ class Reservation < ApplicationRecord
   scope :inactive, -> {where("valid_to < ?", Time.current)}
   validate :period_overlaps
   validate :period
+  validate :timeframe
 
   def period_overlaps
     is_overlapping = Reservation.active.where(room: room).any? do |r|
@@ -16,8 +17,14 @@ class Reservation < ApplicationRecord
   end
 
   def period
-    errors.add(:reservation, "Reservation Time cannot be in the past.") if (self.valid_from < Time.current)
+    errors.add(:reservation, "Reservation Time cannot be in the past.") if self.valid_from.past?
     errors.add(:reservation, "'End time' must be later than 'Start time'.") if !(self.valid_from < self.valid_to)
   end
+
+  def timeframe
+    errors.add(:reservation, "Reservations are only allowed from Mondays to Fridays - 9am to 6pm.") if (self.valid_from.on_weekend?)||(self.valid_to.on_weekend?)
+    errors.add(:reservation, "Reservations are only allowed from Mondays to Fridays - 9am to 6pm.") if (self.valid_from < Time.parse("9am"))||(self.valid_to > Time.parse("6pm"))
+  end
+  
 
 end
