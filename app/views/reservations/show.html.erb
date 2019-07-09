@@ -15,8 +15,8 @@
       </div>
       <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
       <div>Expected attendants: <strong><%= @reservation.attendants %></strong></div>
-      <div>Start time: <strong><%= @reservation.valid_from %></strong></div>
-      <div>End time: <strong><%= @reservation.valid_to %></strong></div>
+      <div>Start time: <strong><%= @reservation.valid_from.to_formatted_s(:long) %></strong></div>
+      <div>End time: <strong><%= @reservation.valid_to.to_formatted_s(:long) %></strong></div>
     </div>
   </div>
 </div>
