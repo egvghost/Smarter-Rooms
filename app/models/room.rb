@@ -6,6 +6,7 @@ class Room < ApplicationRecord
 
     def status
         response = Faraday.get "https://ca-3-api.mybluemix.net/api/v1/rooms/#{self.code}"
-        response.body
+        #response.body
+        data = response.body.lines.map { |line| JSON.parse(line) }.first
     end
 end

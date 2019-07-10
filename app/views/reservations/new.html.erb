@@ -1,51 +1,66 @@
 <h3>New reservation:</h3>
 <br>
-<div class="row" style="align-items:center">
-  <div class="col-6"> 
-    <div class="card">  
-      <div class="container">
-        <%= form_for @reservation, utl: {action: "create"} do |form| %>
-          <br>
-          <%= hidden_field_tag(:room_id, @room.id) %>
-          
-          <div class="field">
-            <%= form.label :start_time%>: 
-            <%= form.datetime_select :valid_from, default: 1.hours.from_now %>
-          </div>
+<div class="container" style="width:1100px">
+  <div class="row" style="align-items:center">
+    <div class="col-6"> 
+      <div class="card" style="width:550px">  
+        <div class="container">
+          <%= form_for @reservation, utl: {action: "create"} do |form| %>
+            <br>
+            <%= hidden_field_tag(:room_id, @room.id) %>
+            
+            <div class="field">
+              <%= form.label :start_time%>: 
+              <%= form.datetime_select :valid_from, default: 1.hours.from_now %>
+            </div>
 
-          <div class="field">
-            <%= form.label :end_time %>: &nbsp;
-            <%= form.datetime_select :valid_to, default: 2.hours.from_now %>
-          </div>
+            <div class="field">
+              <%= form.label :end_time %>: &nbsp;
+              <%= form.datetime_select :valid_to, default: 2.hours.from_now %>
+            </div>
+            <br>
+            <div class="field">
+              <%= form.label :attendants %>: 
+              <%= form.number_field :attendants, min: 0, max: @room.max_capacity %>
+            </div>
+            <div style="float: right;">
+              <%= form.submit "Confirm", class: 'btn btn-sm btn-success' %>
+            </div>
+            <br><br>
+          <% end %>
+        </div>
+      </div> 
+    </div>
+    <div class="col-6">
+      <div class="card" style="width:350px">
+        <div class="container">
           <br>
-          <div class="field">
-            <%= form.label :attendants %>: 
-            <%= form.number_field :attendants, min: 0 %>
+          <div>Room's Name: <strong><%= @room.name %></strong></div>
+          <div>Code: <strong><%= @room.code %></strong></div>
+          <div>Building: <strong><%= @room.building.name %></strong></div>
+          <div>Floor: <strong><%= @room.floor %></strong></div>
+          <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
+          <div>Available equipment: 
+            <ul>
+              <% @room.accessories.each do |a|%>
+                <li><strong><%= a.name %></strong></li>
+              <% end %>
+            </ul>
           </div>
-          <div style="float: right;">
-            <%= form.submit "Confirm", class: 'btn btn-sm btn-success' %>
+          <div>Current status: 
+          <% @status = @room.status %>
+          <% if @status["is_occupied"] %>
+            <strong>The room is occupied</strong><br>
+            Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
+          <% else %>
+            <strong>The room is empty</strong>
+          <% end %>
           </div>
-          <br><br>
-        <% end %>
-      </div>
-    </div> 
-  </div>
-  <div class="col-6">
-    <div class="card">
-      <div class="container">
-        <br>
-        <div>Room's Name: <strong><%= @room.name %></strong></div>
-        <div>Code: <strong><%= @room.code %></strong></div>
-        <div>Building: <strong><%= @room.building.name %></strong></div>
-        <div>Floor: <strong><%= @room.floor %></strong></div>
-        <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
-        <div>Current status: <strong><%= @room.status %></strong></div>
-        <div>Available equipment: 
-          <ul>
-            <% @room.accessories.each do |a|%>
-              <li><strong><%= a.name %></strong></li>
-            <% end %>
-          </ul>
+          <% if current_user.is_admin? %>
+            <div style="float: right;">
+              <%= link_to 'Edit', edit_room_path(@room), class: 'btn btn-sm btn-info' %>
+            </div><br><br>
+          <% end %>
         </div>
       </div>
     </div>

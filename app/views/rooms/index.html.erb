@@ -1,36 +1,54 @@
-<h1>Rooms</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Code</th>
-      <th>Floor</th>
-      <th>Max capacity</th>
-      <th>Active?</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7">
+  <div class="row">
+    <div class="col" style="text-align:right">
+      <% if params[:q].present? %> 
+        <h5 class="vertical-center"><b>Rooms results including "<%= params[:q] %>"</b></h5></div>
+      <% else %>
+        <h5 class="vertical-center"><b>Rooms</b></h5></div>
+      <% end %>
+    <div class="col" style="text-align:right">
+      <%= form_tag(rooms_path, method: :get) do %>
+        <%= text_field_tag :q %>
+        <%= submit_tag 'Search' %>
+      <% end %>
+    </div>
+  </div>
+</div><br>
+<div class="container">
+  <div class="row">
     <% @rooms.each do |room| %>
-      <tr>
-        <td><%= room.name %></td>
-        <td><%= room.code %></td>
-        <td><%= room.floor %></td>
-        <td><%= room.max_capacity %></td>
-        <td><%= room.active %></td>
-        <td><%= link_to 'Show', room %></td>
-        <td><%= link_to 'Reserve', new_reservation_path(room_id: room.id), class: 'btn btn-sm btn-primary' %></td> &nbsp; &nbsp;
-        <% if current_user.is_admin? %>
-          <td><%= link_to 'Edit', edit_room_path(room) %></td>
-          <td><%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+      <div class="card" style="width:220px; height:300px">
+        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+          <h5 style="text-align:center"><strong><%= room.name %></strong></h5>
+        </div>
+        <div class="card-body">
+          <div>Building: <strong><%= room.building.name %></strong></div>
+          <div>Floor: <strong><%= room.floor %></strong></div>
+          <div>Max capacity: <strong><%= room.max_capacity %></strong></div>
+          <div>Status: 
+            <% @status = room.status %>
+            <% if @status["is_occupied"] %>
+              <strong><font color="darkred">Occupied</font></strong>
+            <% else %>
+              <strong><font color="green">Empty</font></strong>
+            <% end %>
+          </div>
+          <% if current_user.is_admin? %>
+            <div>Active: <strong><%= room.active %></strong></div>
+          <% end %><br>
+          <div style="text-align:center"><%= link_to 'Show', room, class: 'btn btn-sm btn-info' %> &nbsp;
+          <%= link_to 'Reserve', new_reservation_path(room_id: room.id), class: 'btn btn-sm btn-primary' %></div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-<br>
-<% if current_user.is_admin? %>
-  <%= link_to 'New Room', new_room_path %>
-<% end %>
+  </div><br><br>
+  <div class="row">
+    <div class="col">
+      <% if current_user.is_admin? %>
+        <div class="row">
+          <%= link_to 'New Room', new_room_path, :class => "btn btn-sm btn-success" %> &nbsp;
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

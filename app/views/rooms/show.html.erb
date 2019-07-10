@@ -23,8 +23,14 @@
 </p>
 
 <p>
-  <strong>Status:</strong>
-  <%= @room.status %>
+  <strong>Current status:</strong>
+  <% @status = @room.status %>
+  <% if @status["is_occupied"] %>
+    <strong>The room is occupied</strong><br>
+    Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
+  <% else %>
+    <strong>The room is empty</strong>
+  <% end %>
 </p>
 
 <p>
@@ -46,4 +52,5 @@
 <%= link_to 'Reserve', new_reservation_path(room_id: @room.id), class: 'btn btn-sm btn-primary' %> | 
 <% if current_user.is_admin? %>
   <%= link_to 'Edit', edit_room_path(@room) %>
+  <%= link_to 'Destroy', @room, method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
