@@ -10,43 +10,43 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :building %>
+<div class="row">
+  <div class="col-9">
+    <%= form.label :name %><br>
+    <%= form.text_field :name, size: 30 %>
+  </div>
+  <div class="col">
+    <%= form.label :code %><br>
+    <%= form.text_field :code, size: 3 %>
+  </div>
+</div><br>
+<div class="row">
+  <div class="col-6">
+    <%= form.label :building %><br>
     <%= form.collection_select(:building_id, @buildings, :id, :name) %>
   </div>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :code %>
-    <%= form.text_field :code %>
-  </div>
-
-  <div class="field">
-    <%= form.label :floor %>
+    <div class="col">
+    <%= form.label :floor %><br>
     <%= form.number_field :floor %>
   </div>
-
-  <div class="field">
-    <%= form.label :max_capacity %>
-    <%= form.number_field :max_capacity, min: 0  %>
+  <div class="col">
+    <%= form.label :max_capacity %><br>
+    <%= form.number_field :max_capacity, min: 0 %>
   </div>
-
-  <div class="field">
-    <%= form.label :equipment %> <br>
+</div><br>
+<div class="row">
+  <div class="col">
+  <div class="check-box checkbox-margin">
+    <%= form.label :equipment %><br>
     <%= form.collection_check_boxes(:accessory_ids, @equipment, :id, :name) %>
-  </div>
-    
+  </div></div>
+</div><br>
   <div class="field">
-    <%= form.label :active %><br>
-    <%= form.check_box :active %><br>
+    <%= form.label :active %> &nbsp; 
+    <%= form.check_box :active %>
   </div>
 
-  <div class="actions">
+  <div class="actions" style="float: right;">
     <%= form.submit %>
   </div>
 <% end %>

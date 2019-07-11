@@ -41,7 +41,7 @@
  
  .card {
    /* Add shadows to create the "card" effect */
-   margin: 0;
+   margin: 0 auto;
    background-color:rgba(0, 121, 203, 0.7);
    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
    transition: 0.3s;
@@ -52,14 +52,32 @@
  .card:hover {
    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
  }
+
+ input[type="number"] {
+  width:40px;
+  height:23px;
+  border-radius: 5px; /* 5px rounded corners */
+}
+
+input[type="text"] {
+ height:23px;
+ border-radius: 5px; /* 5px rounded corners */
+}
+
+.checkbox-margin {
+  text-align:left;
+}
+
+.checkbox-margin input{
+  margin: 0px 0px 0px 0px;
+}
+
+.checkbox-margin label{
+  margin: 0px 20px 0px 3px;
+}
  
- /* Add some padding inside the card container */
- .container {
-   padding: 2px 16px;
- }
- 
-  /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-  .flip-card {
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
    background-color: transparent;
    width: 162px;
    height: 241px;

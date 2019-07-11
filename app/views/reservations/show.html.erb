@@ -1,9 +1,10 @@
-<h3>Reservation confirmed for '<%= @reservation.user.name %>':</h3><br>
-<div class="col-5 center"> 
-  <div class="card" style="padding:30px;">
-    <div class="container">
-      <div>Room's Name: <strong><%= @room.name %></strong></div>
-      <div>Code: <strong><%= @room.code %></strong></div>
+<h3>Reservation confirmed for '<strong><%= @reservation.user.name %></strong>':</h3><br>
+<div class="card" style="width:370px">
+  <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+      <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+  </div>
+  <div class="card-body">
+    <div class="container" style="margin-left:20px">
       <div>Building: <strong><%= @room.building.name %></strong></div>
       <div>Floor: <strong><%= @room.floor %></strong></div>
       <div>Available equipment: 
@@ -14,7 +15,7 @@
         </ul>
       </div>
       <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
-      <div>Expected attendants: <strong><%= @reservation.attendants %></strong></div>
+      <div>Expected attendants: <strong><%= @reservation.attendants %></strong></div><br>
       <div>Start time: <strong><%= @reservation.valid_from.to_formatted_s(:long) %></strong></div>
       <div>End time: <strong><%= @reservation.valid_to.to_formatted_s(:long) %></strong></div>
     </div>

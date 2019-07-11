@@ -17,7 +17,7 @@
 <div class="container">
   <div class="row">
     <% @rooms.each do |room| %>
-      <div class="card" style="width:220px; height:300px">
+      <div class="card" style="width:220px; height:300px; margin-left: 1px">
         <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
           <h5 style="text-align:center"><strong><%= room.name %></strong></h5>
         </div>
@@ -36,7 +36,8 @@
           <% if current_user.is_admin? %>
             <div>Active: <strong><%= room.active %></strong></div>
           <% end %><br>
-          <div style="text-align:center"><%= link_to 'Show', room, class: 'btn btn-sm btn-info' %> &nbsp;
+          <div style="text-align:center">
+          <%= link_to 'Show', room, class: 'btn btn-sm btn-info' %> &nbsp;
           <%= link_to 'Reserve', new_reservation_path(room_id: room.id), class: 'btn btn-sm btn-primary' %></div>
         </div>
       </div>

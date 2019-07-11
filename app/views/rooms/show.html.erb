@@ -1,56 +1,61 @@
-<p>
-  <strong>Room's Name:</strong>
-  <%= @room.name %>
-</p>
-
-<p>
-  <strong>Code:</strong>
-  <%= @room.code %>
-</p>
-
-<p>
-  <strong>Equipment:</strong>
-  <ul>
-    <% @room.accessories.each do |a|%>
-      <li><%= a.name %></li>
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1000px; text-align:center"><b>Room details</b></h5>
+<br>
+<div class="container" style="width:1000px">
+  <div class="row" style="align-items:center">
+    <div class="col-5">
+      <div class="card" style="width:370px">
+        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+            <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div>Code: <strong><%= @room.code %></strong></div>
+            <div>Building: <strong><%= @room.building.name %></strong></div>
+            <div>Floor: <strong><%= @room.floor %></strong></div>
+            <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
+            <div>Available equipment: 
+              <ul>
+                <% @room.accessories.each do |a|%>
+                  <li><strong><%= a.name %></strong></li>
+                <% end %>
+              </ul>
+            </div>
+            <div>Current status: 
+            <% @status = @room.status %>
+            <% if @status["is_occupied"] %>
+              <strong><font color="darkred">The room is occupied</font></strong><br>
+              Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
+            <% else %>
+              <strong><font color="green">The room is empty</font></strong>
+            <% end %>
+            </div><br>
+            <div>Active: <strong><%= @room.active %></strong></div><br>
+            <div style="float:right">
+              <%= link_to 'Reserve', new_reservation_path(room_id: @room.id), class: 'btn btn-sm btn-primary' %>
+              <% if current_user.is_admin? %>
+                <%= link_to 'Edit', edit_room_path(@room), class: 'btn btn-sm btn-info' %>
+                <%= link_to 'Delete', @room, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+              <% end %>
+            </div><br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% if @room.reservations.active.any? %>
+      <div class="col-5">
+        <div class="card" style="width:530px">
+          <h4 class="card-header" style="background-color:rgba(0, 121, 203, 0.5);"> Active reservations:</h4>
+          <div class="card-body">
+            <ul><font size="2.5">
+            <% @room.reservations.active.sort_by {|item| item.valid_from}.take(10).each do |r| %>
+              <li>From <%= r.valid_from %> - To <%= r.valid_to %></li>
+            <% end %>
+            </font></ul>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </ul>
-</p>
-
-<p>
-  <strong>Max capacity:</strong>
-  <%= @room.max_capacity %>
-</p>
-
-<p>
-  <strong>Current status:</strong>
-  <% @status = @room.status %>
-  <% if @status["is_occupied"] %>
-    <strong>The room is occupied</strong><br>
-    Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
-  <% else %>
-    <strong>The room is empty</strong>
-  <% end %>
-</p>
-
-<p>
-  <strong>Building:</strong>
-  <%= @room.building.name %>
-</p>
-
-<p>
-  <strong>Floor:</strong>
-  <%= @room.floor %>
-</p>
-
-<p>
-  <strong>Active?:</strong>
-  <%= @room.active %>
-</p>
-
-<%= link_to 'Back', rooms_path %> | 
-<%= link_to 'Reserve', new_reservation_path(room_id: @room.id), class: 'btn btn-sm btn-primary' %> | 
-<% if current_user.is_admin? %>
-  <%= link_to 'Edit', edit_room_path(@room) %>
-  <%= link_to 'Destroy', @room, method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
+  </div>
+  <br><br>
+  <%= link_to "Back", rooms_path, class: 'btn btn-sm btn-secondary'%>
+</div>

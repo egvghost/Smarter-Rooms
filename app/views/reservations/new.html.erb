@@ -1,8 +1,7 @@
-<h3>New reservation:</h3>
-<br>
-<div class="container" style="width:1100px">
+<div class="container" style="width:1200px">
   <div class="row" style="align-items:center">
     <div class="col-6"> 
+      <h3>New reservation:</h3><br>
       <div class="card" style="width:550px">  
         <div class="container">
           <%= form_for @reservation, utl: {action: "create"} do |form| %>
@@ -32,11 +31,11 @@
       </div> 
     </div>
     <div class="col-6">
+      <br><br><br>
       <div class="card" style="width:350px">
         <div class="container">
           <br>
           <div>Room's Name: <strong><%= @room.name %></strong></div>
-          <div>Code: <strong><%= @room.code %></strong></div>
           <div>Building: <strong><%= @room.building.name %></strong></div>
           <div>Floor: <strong><%= @room.floor %></strong></div>
           <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
@@ -50,22 +49,23 @@
           <div>Current status: 
           <% @status = @room.status %>
           <% if @status["is_occupied"] %>
-            <strong>The room is occupied</strong><br>
+            <strong><font color="darkred">The room is occupied</font></strong><br>
             Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
           <% else %>
-            <strong>The room is empty</strong>
+            <strong><font color="green">The room is empty</font></strong>
           <% end %>
           </div>
-          <% if current_user.is_admin? %>
-            <div style="float: right;">
+          <div style="float: right;">
+            <%= link_to 'Show', @room, class: 'btn btn-sm btn-primary' %>
+            <% if current_user.is_admin? %>
               <%= link_to 'Edit', edit_room_path(@room), class: 'btn btn-sm btn-info' %>
-            </div><br><br>
-          <% end %>
+            <% end %>
+          </div><br><br>
         </div>
       </div>
     </div>
   </div>
+  <br><br>
+  <%= link_to "Back", rooms_path, class: 'btn btn-sm btn-secondary'%>
+  <%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-primary'%>
 </div>
-<br><br><br>
-<%= link_to "Back", rooms_path, class: 'btn btn-sm btn-secondary'%>
-<%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-primary'%>
