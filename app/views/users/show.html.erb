@@ -1,19 +1,31 @@
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>Admin:</strong>
-  <%= @user.admin %>
-</p>
-
-<% if current_user.is_admin? %>
-  <%= link_to 'Back', users_path %>
-<% end %>
-<%= link_to 'Edit', edit_user_path(@user) %>
+<br>
+<div class="container">
+  <div class="row" style="align-items:center">
+    <div class="col">
+      <div class="card" style="width:550px">
+        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+            <h3 style="text-align:center">User details</h3>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                Name: <strong><%= @user.name %></strong>
+              </div>
+              <div class="col">
+                Email: <strong><%= @user.email %></strong>
+              </div>
+            </div><br>
+            Administrator role: <strong><%= @user.admin %></strong>
+            <div style="float:right">
+                <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-sm btn-info'  %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><br><br>
+  <% if current_user.is_admin? %>
+      <%= link_to 'Users list', users_path, class: 'btn btn-sm btn-primary' %>
+  <% end %>
+</div>

@@ -32,13 +32,17 @@
   </div>
 
   <% if logged_in? && current_user.is_admin? %>
+    <br>
     <div class="field">
-      <%= form.label :admin %><br>
+      <%= form.label :admin %>
       <%= form.check_box :admin %><br>
     </div>
-  <% end %><br><br>
+  <% end %><br>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit %> &nbsp; &nbsp; &nbsp; 
+    <% if !@del_perm.nil? && logged_in? && current_user.is_admin? && current_user != user %>
+      <%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %> 
+    <% end %>
   </div>
 <% end %>

@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    if @user.email != current_user.email
-      flash[:warning] = "You are not authorized to see other users information."
+    if (@user.email != current_user.email && !current_user.admin?)
+      flash[:danger] = "You are not authorized to see other users information."
       redirect_to current_user
     end
   end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
 			if @user.save
-				log_in @user
+				log_in @user unless logged_in?
         flash[:success] = "User was successfully created."
         format.html { redirect_to @user }
         format.json { render :show, status: :created, location: @user }
@@ -82,7 +82,12 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      begin 
+        @user = User.find(params[:id])
+      rescue 
+        flash[:danger] = "There was an error performing the operation."
+        redirect_back fallback_location: current_user
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
