@@ -6,10 +6,12 @@ class RoomsController < ApplicationController
   # GET /rooms.json
   def index
     @rooms_selected_in_nav = true
-    if current_user.is_admin?
-      @rooms = Room.all
+    @paginated_rooms = Room.all.page params[:page]
+    @paginated_rooms = @paginated_rooms.where(active: true) unless current_user.is_admin?
+    @rooms = if params[:q]
+      @paginated_rooms.where('name LIKE ?', "%#{params[:q]}%")
     else
-      @rooms = Room.all.where(active: true)
+      @rooms = @paginated_rooms
     end
   end
 
@@ -79,7 +81,16 @@ class RoomsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_room
-      @room = Room.find(params[:id])
+      begin 
+        @room = Room.find(params[:id])
+        (if !@room.is_active? 
+          flash[:danger] = "The room you are trying to access is not available"
+          redirect_to rooms_url
+        end) unless current_user.is_admin?
+      rescue 
+        flash[:danger] = "Room not found"
+        redirect_to rooms_url
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -17,7 +17,7 @@
 <div class="container">
   <div class="row">
     <% @rooms.each do |room| %>
-      <div class="card" style="width:220px; height:300px; margin-left: 1px">
+      <div class="card" style="width:220px; height:300px; margin:0; margin-left: 1px">
         <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
           <h5 style="text-align:center"><strong><%= room.name %></strong></h5>
         </div>
@@ -51,5 +51,6 @@
         </div>
       <% end %>
     </div>
+    <div class="col"><%= paginate @rooms %></div>
   </div>
 </div>

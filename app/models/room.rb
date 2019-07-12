@@ -1,12 +1,17 @@
 class Room < ApplicationRecord
-    belongs_to :building
-    has_and_belongs_to_many :accessories
-    has_many :reservations
-    has_many :users, through: :reservations
+	belongs_to :building
+	has_and_belongs_to_many :accessories
+	has_many :reservations
+	has_many :users, through: :reservations
+  paginates_per 15
 
-    def status
-        response = Faraday.get "https://ca-3-api.mybluemix.net/api/v1/rooms/#{self.code}"
-        #response.body
-        data = response.body.lines.map { |line| JSON.parse(line) }.first
-    end
+	def is_active?
+		self.active
+	end
+
+	def status
+		response = Faraday.get "https://ca-3-api.mybluemix.net/api/v1/rooms/#{self.code}"
+		#response.body
+		data = response.body.lines.map { |line| JSON.parse(line) }.first
+	end
 end
