@@ -32,36 +32,47 @@
     </div>
     <div class="col-6">
       <br><br><br>
-      <div class="card" style="width:350px">
-        <div class="container">
-          <br>
-          <div>Room's Name: <strong><%= @room.name %></strong></div>
-          <div>Building: <strong><%= @room.building.name %></strong></div>
-          <div>Floor: <strong><%= @room.floor %></strong></div>
-          <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
-          <div>Available equipment: 
-            <ul>
-              <% @room.accessories.each do |a|%>
-                <li><strong><%= a.name %></strong></li>
+      <div class="card" style="width:370px">
+        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+          <div class="row" style="align-items:center">
+            <div class="col-1">
+              <% if @room.active %>
+                <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
+              <% else %>
+                <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
               <% end %>
-            </ul>
+            </div>
+            <div class="col-10">
+                <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+            </div>
           </div>
-          <div>Current status: 
-          <% @status = @room.status %>
-          <% if @status["is_occupied"] %>
-            <strong><font color="darkred">The room is occupied</font></strong><br>
-            Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
-          <% else %>
-            <strong><font color="green">The room is empty</font></strong>
-          <% end %>
-          </div>
-          <div style="float: right;">
-            <%= link_to 'Show', @room, class: 'btn btn-sm btn-primary' %>
-            <% if current_user.is_admin? %>
-              <%= link_to 'Edit', edit_room_path(@room), class: 'btn btn-sm btn-info' %>
-            <% end %>
-          </div><br><br>
         </div>
+        <div class="card-body">
+          <div class="container">
+            <div>Building: <strong><%= @room.building.name %></strong></div>
+            <div>Floor: <strong><%= @room.floor %></strong></div>
+            <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
+            <div>Available equipment: 
+              <ul>
+                <% @room.accessories.each do |a|%>
+                  <li><strong><%= a.name %></strong></li>
+                <% end %>
+              </ul>
+            </div>
+            <div>Current status: 
+            <% @status = @room.status %>
+            <% if @status["is_occupied"] %>
+              <strong><font color="darkred">The room is occupied</font></strong><br>
+              Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
+            <% else %>
+              <strong><font color="green">The room is empty</font></strong>
+            <% end %>
+            </div><br>
+            <div style="float: right;">
+              <%= link_to 'Show', @room, class: 'btn btn-sm btn-primary' %>
+            </div><br>
+          </div>
+        </div>  
       </div>
     </div>
   </div>

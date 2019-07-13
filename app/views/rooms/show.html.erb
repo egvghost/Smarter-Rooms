@@ -1,11 +1,22 @@
-<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1000px; text-align:center"><b>Room details</b></h5>
+<h4 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1000px; text-align:center"><b>Room details</b></h4>
 <br>
-<div class="container" style="width:1000px">
+<div class="container" style="width:980px">
   <div class="row" style="align-items:center">
-    <div class="col-5">
+    <div class="col">
       <div class="card" style="width:370px">
         <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
-            <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+          <div class="row" style="align-items:center">
+            <div class="col-1">
+              <% if @room.active %>
+                <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
+              <% else %>
+                <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
+              <% end %>
+            </div>
+            <div class="col-10">
+                <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+            </div>
+          </div>
         </div>
         <div class="card-body">
           <div class="container">
@@ -28,8 +39,7 @@
             <% else %>
               <strong><font color="green">The room is empty</font></strong>
             <% end %>
-            </div><br>
-            <div>Active: <strong><%= @room.active %></strong></div><br>
+            </div><br><br>
             <div style="float:right">
               <%= link_to 'Reserve', new_reservation_path(room_id: @room.id), class: 'btn btn-sm btn-primary' %>
               <% if current_user.is_admin? %>
@@ -42,7 +52,7 @@
       </div>
     </div>
     <% if @room.reservations.active.any? %>
-      <div class="col-5">
+      <div class="col">
         <div class="card" style="width:530px">
           <h4 class="card-header" style="background-color:rgba(0, 121, 203, 0.5);"> Active reservations:</h4>
           <div class="card-body">

@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col" style="text-align:right">
       <% if params[:q].present? %> 
-        <h5 class="vertical-center"><b>Rooms results including "<%= params[:q] %>"</b></h5></div>
+        <h4 class="vertical-center"><b>Rooms results including "<%= params[:q] %>"</b></h4></div>
       <% else %>
-        <h5 class="vertical-center"><b>Rooms</b></h5></div>
+        <h4 class="vertical-center"><b>Rooms</b></h4></div>
       <% end %>
-    <div class="col" style="text-align:right">
+    <div class="col" style="text-align:right; margin-top:3px">
       <%= form_tag(rooms_path, method: :get) do %>
         <%= text_field_tag :q %>
-        <%= submit_tag 'Search' %>
+        <button type="submit" class="btn btn-sm"><i class="fa fa-search"></i></button>
       <% end %>
     </div>
   </div>
@@ -17,11 +17,26 @@
 <div class="container">
   <div class="row">
     <% @rooms.each do |room| %>
-      <div class="card" style="width:220px; height:300px; margin:0; margin-left: 1px">
-        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
-          <h5 style="text-align:center"><strong><%= room.name %></strong></h5>
+      <div class="card" style="width:220px; height:270px; margin:0; margin-left:1px; margin-right:1px; margin-bottom:2px">
+        <div class="card-header" style="width:220px; height:55px; background-color:rgba(0, 121, 203, 0.5);">
+          <div class="row" style="align-items:center">
+            <div class="col-2">
+              <% if room.active %>
+                <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
+              <% else %>
+                <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
+              <% end %>
+            </div>
+            <div class="col-10">
+              <% if room.name.size > 13 %>
+                <h5 style="font-size:1em; text-align:right"><strong><%= room.name %></strong></h5>
+              <% else %>
+                <h5 style="text-align:center"><strong><%= room.name %></strong></h5>
+              <% end %>
+            </div>
+          </div>
         </div>
-        <div class="card-body">
+        <div class="card-body" style="margin-left:10px">
           <div>Building: <strong><%= room.building.name %></strong></div>
           <div>Floor: <strong><%= room.floor %></strong></div>
           <div>Max capacity: <strong><%= room.max_capacity %></strong></div>
@@ -32,10 +47,7 @@
             <% else %>
               <strong><font color="green">Empty</font></strong>
             <% end %>
-          </div>
-          <% if current_user.is_admin? %>
-            <div>Active: <strong><%= room.active %></strong></div>
-          <% end %><br>
+          </div><br>
           <div style="text-align:center">
           <%= link_to 'Show', room, class: 'btn btn-sm btn-info' %> &nbsp;
           <%= link_to 'Reserve', new_reservation_path(room_id: room.id), class: 'btn btn-sm btn-primary' %></div>

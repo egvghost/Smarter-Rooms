@@ -1,7 +1,18 @@
 <h3>Reservation confirmed for '<strong><%= @reservation.user.name %></strong>':</h3><br>
 <div class="card" style="width:370px">
   <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
-      <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+    <div class="row" style="align-items:center">
+      <div class="col-1">
+        <% if @room.active %>
+          <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
+        <% else %>
+          <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
+        <% end %>
+      </div>
+      <div class="col-10">
+          <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+      </div>
+    </div>
   </div>
   <div class="card-body">
     <div class="container" style="margin-left:20px">
@@ -24,5 +35,5 @@
 <br><br><br>
 <%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-success'%>
 <% if current_user.is_admin? %>
-  <%= link_to "All Reservations", all_reservations_path, class: 'btn btn-sm btn-primary'%>
+  <%= link_to 'Room info', @room, class: 'btn btn-sm btn-info' %>
 <% end %>

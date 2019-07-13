@@ -34,7 +34,11 @@
    transform: translateY(-50%);
  }
  
- /* Add rounded corners to the top left and the top right corner of the image */
+.container {
+  border-radius: 3px;
+}
+
+/* Add rounded corners to the top left and the top right corner of the image */
  img {
    border-radius: 5px;
  }
