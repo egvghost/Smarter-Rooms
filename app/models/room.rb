@@ -14,7 +14,7 @@ class Room < ApplicationRecord
 		#response.body
 		output = case
 			when response.status == 200 then JSON.parse(response.body)
-			when response.status == 200 then nil
+			when response.status == 404 then nil
 		end
 	end
 end
