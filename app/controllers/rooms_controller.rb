@@ -74,11 +74,16 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   # DELETE /rooms/1.json
   def destroy
+    if @room.reservations.any?
+      flash[:warning] = "A room with active reservations cannot be deleted."
+      redirect_to @room
+    else
     @room.destroy
-    respond_to do |format|
-      flash[:success] = "Room was successfully deleted."
-      format.html { redirect_to rooms_url}
-      format.json { head :no_content }
+      respond_to do |format|
+        flash[:success] = "Room was successfully deleted."
+        format.html { redirect_to rooms_url}
+        format.json { head :no_content }
+      end
     end
   end
 
