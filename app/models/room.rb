@@ -12,6 +12,9 @@ class Room < ApplicationRecord
 	def status
 		response = Faraday.get "https://ca-3-api.mybluemix.net/api/v1/rooms/#{self.code}"
 		#response.body
-		data = response.body.lines.map { |line| JSON.parse(line) }.first
+		output = case
+			when response.status == 200 then JSON.parse(response.body)
+			when response.status == 200 then nil
+		end
 	end
 end

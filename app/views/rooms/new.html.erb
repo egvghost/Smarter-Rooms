@@ -1,5 +1,18 @@
-<h1>New Room</h1>
-
-<%= render 'form', room: @room %>
-
-<%= link_to 'Back', rooms_path %>
+<br>
+<div class="container" style="width:1000px">
+  <div class="row" style="align-items:center">
+    <div class="col"> 
+      <div class="card" style="width:550px">
+        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+          <h3 style="text-align:center">New room</h3>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <%= render 'form', room: @room %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><br><br>
+  <%= link_to "Back", rooms_path, class: 'btn btn-sm btn-secondary'%>
+</div>

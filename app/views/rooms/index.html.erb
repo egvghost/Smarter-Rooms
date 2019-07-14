@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col" style="text-align:right">
       <% if params[:q].present? %> 
-        <h4 class="vertical-center"><b>Rooms results including "<%= params[:q] %>"</b></h4></div>
+        <h5 class="vertical-center"><b>Rooms results including "<%= params[:q] %>"</b></h5></div>
       <% else %>
-        <h4 class="vertical-center"><b>Rooms</b></h4></div>
+        <h5 class="vertical-center"><b>Rooms</b></h5></div>
       <% end %>
     <div class="col" style="text-align:right; margin-top:3px">
       <%= form_tag(rooms_path, method: :get) do %>
@@ -17,7 +17,7 @@
 <div class="container">
   <div class="row">
     <% @rooms.each do |room| %>
-      <div class="card" style="width:220px; height:270px; margin:0; margin-left:1px; margin-right:1px; margin-bottom:2px">
+      <div class="card" style="width:220px; height:270px; margin-bottom:2px">
         <div class="card-header" style="width:220px; height:55px; background-color:rgba(0, 121, 203, 0.5);">
           <div class="row" style="align-items:center">
             <div class="col-2">
@@ -36,15 +36,16 @@
             </div>
           </div>
         </div>
-        <div class="card-body" style="margin-left:10px">
+        <div class="card-body" style="margin-left:5px">
           <div>Building: <strong><%= room.building.name %></strong></div>
           <div>Floor: <strong><%= room.floor %></strong></div>
           <div>Max capacity: <strong><%= room.max_capacity %></strong></div>
-          <div>Status: 
-            <% @status = room.status %>
-            <% if @status["is_occupied"] %>
-              <strong><font color="darkred">Occupied</font></strong>
-            <% else %>
+          <div>Status:
+            <% if room.status.nil? %>
+              <i><font color="yellow">Not available</font></i>
+            <% elsif room.status["is_occupied"] %>
+              <strong><font color="darkred">Occupied</font></strong><br>
+           <% else %>
               <strong><font color="green">Empty</font></strong>
             <% end %>
           </div><br>

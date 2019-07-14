@@ -1,39 +1,48 @@
-<h3>Reservation confirmed for '<strong><%= @reservation.user.name %></strong>':</h3><br>
-<div class="card" style="width:370px">
-  <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
-    <div class="row" style="align-items:center">
-      <div class="col-1">
-        <% if @room.active %>
-          <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
-        <% else %>
-          <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
-        <% end %>
-      </div>
-      <div class="col-10">
-          <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
-      </div>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="container" style="margin-left:20px">
-      <div>Building: <strong><%= @room.building.name %></strong></div>
-      <div>Floor: <strong><%= @room.floor %></strong></div>
-      <div>Available equipment: 
-        <ul>
-          <% @room.accessories.each do |a|%>
-            <li><strong><%= a.name %></strong></li>
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1000px; text-align:center"><b>Reservation details</b></h5>
+<br>
+<div class="container" style="width:1000px">
+  <div class="card" style="width:370px">
+    <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+      <div class="row" style="align-items:center">
+        <div class="col-1">
+          <% if @room.active %>
+            <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
+          <% else %>
+            <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
           <% end %>
-        </ul>
+        </div>
+        <div class="col-10">
+            <h3 style="text-align:center"><strong><%= @room.name %></strong></h3>
+        </div>
       </div>
-      <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
-      <div>Expected attendants: <strong><%= @reservation.attendants %></strong></div><br>
-      <div>Start time: <strong><%= @reservation.valid_from.to_formatted_s(:long) %></strong></div>
-      <div>End time: <strong><%= @reservation.valid_to.to_formatted_s(:long) %></strong></div>
+    </div>
+    <div class="card-body">
+      <div class="container" style="margin-left:20px">
+        <div>User: <strong><%= @reservation.user.name %></strong></div>
+        <div>Building: <strong><%= @room.building.name %></strong></div>
+        <div>Floor: <strong><%= @room.floor %></strong></div>
+        <div>Available equipment: 
+          <ul>
+            <% @room.accessories.each do |a|%>
+              <li><strong><%= a.name %></strong></li>
+            <% end %>
+          </ul>
+        </div>
+        <div>Max capacity: <strong><%= @room.max_capacity %></strong></div>
+        <div>Expected attendants: <strong><%= @reservation.attendants %></strong></div><br>
+        <div>Start time: <strong><%= @reservation.valid_from.to_formatted_s(:long) %></strong></div>
+        <div>End time: <strong><%= @reservation.valid_to.to_formatted_s(:long) %></strong></div><br>
+        <div style="float:right">
+            <% if current_user.is_admin? %>
+              <%= link_to 'Cancel', @reservation, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            <% end %>
+          </div>
+      </div>
     </div>
   </div>
+  <br><br><br>
+  <%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-success'%>
+  <% if current_user.is_admin? %>
+    <%= link_to 'Room info', @room, class: 'btn btn-sm btn-info' %>
+  <% end %>
 </div>
-<br><br><br>
-<%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-success'%>
-<% if current_user.is_admin? %>
-  <%= link_to 'Room info', @room, class: 'btn btn-sm btn-info' %>
-<% end %>

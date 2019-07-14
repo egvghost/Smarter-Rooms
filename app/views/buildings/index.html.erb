@@ -1,32 +1,34 @@
-<h1>Buildings</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Coordinates</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @buildings.each do |building| %>
-      <tr>
-        <td><%= building.name %></td>
-        <td><%= building.address %></td>
-        <td><%= building.coordinates %></td>
-        <td><%= link_to 'Show', building %></td>
-        <% if current_user.is_admin? %>
-          <td><%= link_to 'Edit', edit_building_path(building) %></td>
-          <td><%= link_to 'Destroy', building, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1080px; text-align:center"><b>Buildings</b></h5>
 <br>
-<% if current_user.is_admin? %>
-  <%= link_to 'New Building', new_building_path %>
-<% end %>
+<div class="container" style="width:1080px;">
+  <div class="row">
+    <% @buildings.each do |building| %>
+      <div class="card" style="width:350px; margin-bottom:8px">
+        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+          <h3 style="text-align:center"><strong><%= building.name %></strong></h3>
+        </div>
+        <div class="card-body">
+          <div>Address: <strong><%= building.address %></strong></div>
+          <div>Coordinates: <strong><%= building.coordinates %></strong></div><br>
+          <div>Rooms: <strong><%= building.rooms.count %></strong></div><br>
+          <div style="text-align:center">
+            <%= link_to 'Show', building, class: 'btn btn-sm btn-primary' %>
+            <% if current_user.is_admin? %>
+              <%= link_to 'Edit', edit_building_path(building), class: 'btn btn-sm btn-info' %>
+            <% end %>
+            &nbsp; <%= link_to 'Rooms', rooms_path(building_id: building.id), class: 'btn btn-sm btn-success' %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div><br><br>
+  <div class="row">
+    <div class="col">
+      <% if current_user.is_admin? %>
+        <div class="row">
+          <%= link_to 'New Building', new_building_path, :class => "btn btn-sm btn-success" %> &nbsp;
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

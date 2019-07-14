@@ -1,25 +1,28 @@
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1000px; text-align:center"><b>User details</b></h5>
 <br>
-<div class="container">
+<div class="container" style="width:1000px">
   <div class="row" style="align-items:center">
     <div class="col">
       <div class="card" style="width:550px">
         <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
-            <h3 style="text-align:center">User details</h3>
+            <h3 style="text-align:center"><strong><%= @user.name %></strong></h3>
         </div>
         <div class="card-body">
           <div class="container">
             <div class="row">
               <div class="col">
-                Name: <strong><%= @user.name %></strong>
-              </div>
-              <div class="col">
                 Email: <strong><%= @user.email %></strong>
               </div>
+              <div class="col">
+                Administrator role: <strong><%= @user.admin %></strong>
+              </div>
             </div><br>
-            Administrator role: <strong><%= @user.admin %></strong>
             <div style="float:right">
                 <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-sm btn-info'  %>
-            </div>
+                <% if current_user.is_admin? %>
+                  <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+                <% end %>
+              </div>
           </div>
         </div>
       </div>

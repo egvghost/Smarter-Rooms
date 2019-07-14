@@ -1,7 +1,20 @@
-<p>
-  <strong>Name:</strong>
-  <%= @accessory.name %>
-</p>
-
-<%= link_to 'Edit', edit_accessory_path(@accessory) %> |
-<%= link_to 'Back', accessories_path %>
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1000px; text-align:center"><b>Accesory details</b></h5>
+<br>
+<div class="container" style="width:1000px">
+  <div class="row" style="align-items:center">
+    <div class="card" style="width:350px">
+      <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+          <h3 style="text-align:center"><strong><%= @accessory.name %></strong></h3>
+      </div>
+      <div class="card-body">
+        <% if current_user.is_admin? %>
+          <div style="float:right">
+            <%= link_to 'Edit', edit_accessory_path(@accessory), class: 'btn btn-sm btn-info' %>
+            <%= link_to 'Delete', @accessory, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div><br><br>
+  <%= link_to 'Accessories list', accessories_path, class: 'btn btn-sm btn-primary' %>
+</div>

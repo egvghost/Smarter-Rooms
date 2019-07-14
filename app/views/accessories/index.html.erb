@@ -1,25 +1,31 @@
-<h1>Accessories</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @accessories.each do |accessory| %>
-      <tr>
-        <td><%= accessory.name %></td>
-        <td><%= link_to 'Show', accessory %></td>
-        <td><%= link_to 'Edit', edit_accessory_path(accessory) %></td>
-        <td><%= link_to 'Destroy', accessory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1080px; text-align:center"><b>Accessories</b></h5>
 <br>
-
-<%= link_to 'New Accessory', new_accessory_path %>
+<div class="container" style="width:1080px;">
+  <div class="row">
+    <% @accessories.each do |accessory| %>
+      <div class="card" style="width:350px; margin-bottom:8px">
+        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+          <h3 style="text-align:center"><strong><%= accessory.name %></strong></h3>
+        </div>
+        <div class="card-body">
+          <div style="text-align:center">
+            <%= link_to 'Show', accessory, class: 'btn btn-sm btn-primary' %>
+            <% if current_user.is_admin? %>
+              <%= link_to 'Edit', edit_accessory_path(accessory), class: 'btn btn-sm btn-info' %>
+              <%= link_to 'Delete', accessory, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div><br><br>
+  <div class="row">
+    <div class="col">
+      <% if current_user.is_admin? %>
+        <div class="row">
+          <%= link_to 'New Accessory', new_accessory_path, :class => "btn btn-sm btn-success" %> &nbsp;
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

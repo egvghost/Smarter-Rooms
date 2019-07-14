@@ -6,7 +6,11 @@ class RoomsController < ApplicationController
   # GET /rooms.json
   def index
     @rooms_selected_in_nav = true
-    @paginated_rooms = Room.all.page params[:page]
+    @paginated_rooms = if params[:building_id]
+      Room.all.where(building_id: params[:building_id]).page params[:page]
+    else 
+      Room.all.page params[:page]
+    end
     @paginated_rooms = @paginated_rooms.where(active: true) unless current_user.is_admin?
     @rooms = if params[:q]
       @paginated_rooms.where('name LIKE ?', "%#{params[:q]}%")
