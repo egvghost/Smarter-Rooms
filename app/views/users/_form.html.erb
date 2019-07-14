@@ -1,36 +1,20 @@
 <%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  
   <div class="field">
     <%= form.label :name %><br>
     <%= form.text_field :name %><br>
   </div>
-
   <div class="field">
     <%= form.label :email %><br>
     <%= form.text_field :email %><br>
   </div>
-
   <div class="field">
     <%= form.label :password %><br>
     <%= form.password_field :password %><br>
   </div>
-
   <div class="field">
     <%= form.label :password_confirmation, "Confirmation" %><br>
     <%= form.password_field :password_confirmation %><br>
   </div>
-
   <% if logged_in? && current_user.is_admin? %>
     <br>
     <div class="field">
@@ -38,7 +22,6 @@
       <%= form.check_box :admin %><br>
     </div>
   <% end %><br>
-
   <div class="actions" style="float:right">
     <%= form.submit %>
   </div>

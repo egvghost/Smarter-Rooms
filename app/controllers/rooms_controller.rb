@@ -48,8 +48,8 @@ class RoomsController < ApplicationController
         format.html { redirect_to @room }
         format.json { render :show, status: :created, location: @room }
       else
-        flash[:danger] = "There was an error performing the operation. #{@room.errors.first.last}"
-        format.html { render :new }
+        flash[:danger] = "There was an error performing the operation. #{@room.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: rooms_path }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end
@@ -64,8 +64,8 @@ class RoomsController < ApplicationController
         format.html { redirect_to @room }
         format.json { render :show, status: :ok, location: @room }
       else
-        flash[:danger] = "There was an error performing the operation. #{@room.errors.first.last}"
-        format.html { render :edit }
+        flash[:danger] = "There was an error performing the operation. #{@room.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: @room }
         format.json { render json: @room.errors, status: :unprocessable_entity }
       end
     end

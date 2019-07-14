@@ -34,8 +34,8 @@ class BuildingsController < ApplicationController
         format.html { redirect_to @building }
         format.json { render :show, status: :created, location: @building }
       else
-        flash[:danger] = "There was an error performing the operation. #{@building.errors.first.last}"
-        format.html { render :new }
+        flash[:danger] = "There was an error performing the operation. #{@building.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: buildings_path }
         format.json { render json: @building.errors, status: :unprocessable_entity }
       end
     end
@@ -50,8 +50,8 @@ class BuildingsController < ApplicationController
         format.html { redirect_to @building }
         format.json { render :show, status: :ok, location: @building }
       else
-        flash[:danger] = "There was an error performing the operation. #{@building.errors.first.last}"
-        format.html { render :edit }
+        flash[:danger] = "There was an error performing the operation. #{@building.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: @building }
         format.json { render json: @building.errors, status: :unprocessable_entity }
       end
     end

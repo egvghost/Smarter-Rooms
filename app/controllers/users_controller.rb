@@ -44,8 +44,8 @@ class UsersController < ApplicationController
         format.html { redirect_to @user }
         format.json { render :show, status: :created, location: @user }
       else
-        flash[:danger] = "There was an error performing the operation. #{@user.errors.first.last}"
-        format.html { render :new }
+        flash[:danger] = "There was an error performing the operation. #{@user.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: users_path}
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -61,8 +61,8 @@ class UsersController < ApplicationController
         format.html { redirect_to @user }
         format.json { render :show, status: :ok, location: @user }
       else
-        flash[:danger] = "There was an error performing the operation. #{@user.errors.first.last}"
-        format.html { render :edit }
+        flash[:danger] = "There was an error performing the operation. #{@user.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: @user }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

@@ -33,8 +33,8 @@
         <div>Start time: <strong><%= @reservation.valid_from.to_formatted_s(:long) %></strong></div>
         <div>End time: <strong><%= @reservation.valid_to.to_formatted_s(:long) %></strong></div><br>
         <div style="float:right">
-            <% if current_user.is_admin? %>
-              <%= link_to 'Cancel', @reservation, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            <% if (current_user.is_admin? || current_user == @reservation.user) %>
+              <%= link_to 'Cancel Reservation', @reservation, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
             <% end %>
           </div>
       </div>

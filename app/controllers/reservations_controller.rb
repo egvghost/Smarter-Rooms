@@ -12,10 +12,19 @@ class ReservationsController < ApplicationController
   end
 
   def show
-    @reservation = Reservation.find(params[:id])
-    @room = @reservation.room
-    if (@reservation.attendants? && @room.max_capacity? && @reservation.attendants > @room.max_capacity)
-      flash.now[:warning] = "Take into consideration that there might not be enough sits for all attendants."
+    begin 
+      @reservation = Reservation.find(params[:id])
+      unless (current_user.is_admin? || current_user == @reservation.user)
+        flash[:danger] = "You are not authorized to perform this action."
+        redirect_to reservations_url
+      end 
+      @room = @reservation.room
+      if (@reservation.attendants? && @room.max_capacity? && @reservation.attendants > @room.max_capacity)
+        flash.now[:warning] = "Take into consideration that there might not be enough sits for all attendants."
+      end
+    rescue 
+      flash[:danger] = "Reservation not found"
+      redirect_to all_reservations_url
     end
   end
 
@@ -37,7 +46,7 @@ class ReservationsController < ApplicationController
       flash[:success] = "You have successfully reserved room '#{@room.name}'."
       redirect_to @reservation
     else
-      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.first.last}"
+      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.full_messages.first}"
       redirect_back fallback_location: rooms_path
     end
   end
@@ -60,7 +69,6 @@ class ReservationsController < ApplicationController
 
   def reservation_params
     params.require(:reservation).permit(:valid_from, :valid_to, :room_id, :user_id, :active, :attendants)
-    #whitelist creada para permitir SÓLO los parámetros listados, durante el POST del form
   end
 
   def verify_if_active_and_redirect_with_error_message_if_not 

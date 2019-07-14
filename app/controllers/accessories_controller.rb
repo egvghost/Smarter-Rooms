@@ -34,8 +34,8 @@ class AccessoriesController < ApplicationController
         format.html { redirect_to @accessory }
         format.json { render :show, status: :created, location: @accessory }
       else
-        flash[:danger] = "There was an error performing the operation. #{@accessory.errors.first.last}"
-        format.html { render :new }
+        flash[:danger] = "There was an error performing the operation. #{@accessory.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: accessories_path}
         format.json { render json: @accessory.errors, status: :unprocessable_entity }
       end
     end
@@ -50,8 +50,8 @@ class AccessoriesController < ApplicationController
         format.html { redirect_to @accessory }
         format.json { render :show, status: :ok, location: @accessory }
       else
-        flash[:danger] = "There was an error performing the operation. #{@accessory.errors.first.last}"
-        format.html { render :edit }
+        flash[:danger] = "There was an error performing the operation. #{@accessory.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: @accessory }
         format.json { render json: @accessory.errors, status: :unprocessable_entity }
       end
     end
