@@ -61,12 +61,12 @@
             </div>
             <div>Current status: 
             <% if @room.status.nil? %>
-              <i><font color="yellow">There is no information available for this room</font></i>
+              <i><font color="yellow">There is no information for this room</font></i>
             <% elsif @room.status["is_occupied"] %>
               <strong><font color="darkred">The room is occupied</font></strong><br>
               Estimated occupants: <strong><%= @room.status["estimated_occupants"] %></strong>
            <% else %>
-              <strong><font color="green">The room is empty</font></strong>
+              <strong><font color="green">The room is available</font></strong>
             <% end %>
             </div><br>
             <div style="float: right;">

@@ -42,11 +42,11 @@
           <div>Max capacity: <strong><%= room.max_capacity %></strong></div>
           <div>Status:
             <% if room.status.nil? %>
-              <i><font color="yellow">Not available</font></i>
+              <i><font color="yellow">No information</font></i>
             <% elsif room.status["is_occupied"] %>
               <strong><font color="darkred">Occupied</font></strong><br>
            <% else %>
-              <strong><font color="green">Empty</font></strong>
+              <strong><font color="green">Available</font></strong>
             <% end %>
           </div><br>
           <div style="text-align:center">
