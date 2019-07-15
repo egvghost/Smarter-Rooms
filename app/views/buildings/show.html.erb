@@ -13,7 +13,7 @@
         <% if current_user.is_admin? %>
           <div style="float:right">
             <%= link_to 'Edit', edit_building_path(@building), class: 'btn btn-sm btn-info' %>
-            <%= link_to 'Delete', @building, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            <%#<%= link_to 'Delete', @building, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
           </div>
         <% end %>
       </div>

@@ -59,14 +59,14 @@ class BuildingsController < ApplicationController
 
   # DELETE /buildings/1
   # DELETE /buildings/1.json
-  def destroy
-    @building.destroy
-    respond_to do |format|
-      flash[:success] = "Building was successfully deleted."
-      format.html { redirect_to buildings_url }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   @building.destroy
+  #   respond_to do |format|
+  #     flash[:success] = "Building was successfully deleted."
+  #     format.html { redirect_to buildings_url }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
