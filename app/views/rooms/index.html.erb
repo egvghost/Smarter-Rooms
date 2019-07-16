@@ -42,10 +42,11 @@
           <div>Building: <strong><%= room.building.name %></strong></div>
           <div>Floor: <strong><%= room.floor %></strong></div>
           <div>Max capacity: <strong><%= room.max_capacity %></strong></div>
+          <% @status = room.status %>
           <div>Status:
-            <% if room.status.nil? %>
+            <% if @status.nil? %>
               <i><font color="yellow">No information</font></i>
-            <% elsif room.status["is_occupied"] %>
+            <% elsif @status["is_occupied"] %>
               <strong><font color="darkred">Occupied</font></strong><br>
            <% else %>
               <strong><font color="green">Available</font></strong>

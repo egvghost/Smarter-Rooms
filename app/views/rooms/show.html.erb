@@ -31,12 +31,13 @@
                 <% end %>
               </ul>
             </div>
+            <% @status = @room.status %>
             <div>Current status: 
-            <% if @room.status.nil? %>
+            <% if @status.nil? %>
               <i><font color="yellow">There is no information for this room</font></i>
-            <% elsif @room.status["is_occupied"] %>
+            <% elsif @status["is_occupied"] %>
               <strong><font color="darkred">The room is occupied</font></strong><br>
-              Estimated occupants: <strong><%= @room.status["estimated_occupants"] %></strong>
+              Estimated occupants: <strong><%= @status["estimated_occupants"] %></strong>
            <% else %>
               <strong><font color="green">The room is available</font></strong>
             <% end %>
