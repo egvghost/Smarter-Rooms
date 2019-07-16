@@ -4,15 +4,15 @@
     <tr>
       <th style="width:22%;">Room</th>
       <th style="width:22%;">User</th>
-      <th style="width:15%;">Reserved from</th>
-      <th style="width:15%;">Reserved until</th>
+      <th style="width:17%;">Reserved from</th>
+      <th style="width:17%;">Reserved until</th>
       <th Style="text-align:center;">Action</th>
     </tr>
   </thead>
   <tbody style="background-color:rgba(0, 181, 255, 0.5)">
     <% @reservations.scheduled.sort_by {|item| item.id}.reverse.each do |reservation| %>
       <tr>
-        <td><%= link_to reservation.room.name, reservation.room %></td>
+        <td><%= link_to reservation.room.name, reservation.room, :style => "text-decoration:none; color:#bce5ff;"  %></td>
         <td><%= reservation.user.name %></td>
         <td><%= reservation.valid_from.to_formatted_s(:long) %></td>
         <td><%= reservation.valid_to.to_formatted_s(:long) %></td>

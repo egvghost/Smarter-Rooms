@@ -11,7 +11,7 @@
   <tbody style="background-color:rgba(0, 181, 255, 0.5)">
     <% current_user.reservations.scheduled.sort_by {|item| item.id}.reverse.each do |reservation| %>
       <tr>
-        <td><%= link_to reservation.room.name, reservation.room %></td>
+        <td><%= link_to reservation.room.name, reservation.room, :style => "text-decoration:none; color:#bce5ff;" %></td>
         <td><%= reservation.valid_from.to_formatted_s(:long) %></td>
         <td><%= reservation.valid_to.to_formatted_s(:long) %></td>
         <td Style="text-align:center;">
@@ -32,9 +32,9 @@
     </tr>
   </thead>
   <tbody style="background-color:rgba(0, 181, 255, 0.5)">
-    <% current_user.reservations.inactive.sort_by {|item| item.id}.reverse.each do |reservation| %>
+    <% current_user.reservations.expired.sort_by {|item| item.id}.reverse.each do |reservation| %>
       <tr>
-        <td><%= link_to reservation.room.name, reservation.room %></td>
+        <td><%= link_to reservation.room.name, reservation.room, :style => "text-decoration:none; color:#bce5ff;"  %></td>
         <td><%= reservation.valid_from.to_formatted_s(:long) %></td>
         <td><%= reservation.valid_to.to_formatted_s(:long) %></td>
         <td Style="text-align:center;"><font color="darkred">Expired</font></td>

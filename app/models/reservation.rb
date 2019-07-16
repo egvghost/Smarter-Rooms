@@ -5,7 +5,7 @@ class Reservation < ApplicationRecord
   validates :valid_from, presence: true
   scope :scheduled, -> {where("valid_to > ?", Time.current)}
   scope :active, -> {where("valid_from <= ? AND valid_to >= ?", Time.current, Time.current)}
-  scope :inactive, -> {where.not("valid_from <= ? AND valid_to >= ?", Time.current, Time.current)}
+  scope :expired, -> {where("valid_to < ?", Time.current)}
   validate :period
   validate :period_overlaps
 
