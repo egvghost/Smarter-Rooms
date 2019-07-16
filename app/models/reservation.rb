@@ -3,8 +3,9 @@ class Reservation < ApplicationRecord
   belongs_to :room
   validates :valid_to, presence: true
   validates :valid_from, presence: true
-  scope :active, -> {where("valid_to > ?", Time.current)}
-  scope :inactive, -> {where("valid_to < ?", Time.current)}
+  scope :scheduled, -> {where("valid_to > ?", Time.current)}
+  scope :active, -> {where("valid_from <= ? AND valid_to >= ?", Time.current, Time.current)}
+  scope :inactive, -> {where.not("valid_from <= ? AND valid_to >= ?", Time.current, Time.current)}
   validate :period
   validate :period_overlaps
 
@@ -16,11 +17,10 @@ class Reservation < ApplicationRecord
   end
 
   def period_overlaps
-    is_overlapping = Reservation.active.where(room: room).any? do |r|
+    is_overlapping = Reservation.scheduled.where(room: room).any? do |r|
       (r.valid_from...r.valid_to).overlaps?(self.valid_from...self.valid_to)
     end
     errors.add(:reservation, "There is an active reservation for this Room for the specified period.") if is_overlapping
   end
-  
 
 end
