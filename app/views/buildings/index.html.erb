@@ -1,22 +1,19 @@
 <h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1080px; text-align:center"><b>Buildings</b></h5>
-<br>
 <div class="container" style="width:1080px;">
   <div class="row">
     <% @buildings.each do |building| %>
-      <div class="card" style="width:350px; margin-bottom:8px">
-        <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
-          <h3 style="text-align:center"><strong><%= building.name %></strong></h3>
-        </div>
+      <div class="card" style="width:350px; margin-bottom:8px; margin:0 auto;">
+        <a href="buildings/<%= building.id %>" style="text-decoration:none; color:#bce5ff;">
+          <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+            <h3 style="text-align:center"><strong><%= building.name %></strong></h3>
+          </div>
+        </a>
         <div class="card-body">
           <div>Address: <strong><%= building.address %></strong></div>
           <div>Coordinates: <strong><%= building.coordinates %></strong></div><br>
           <div>Rooms: <strong><%= building.rooms.count %></strong></div><br>
-          <div style="text-align:center">
-            <%= link_to 'Show', building, class: 'btn btn-sm btn-primary' %>
-            <% if current_user.is_admin? %>
-              <%= link_to 'Edit', edit_building_path(building), class: 'btn btn-sm btn-info' %>
-            <% end %>
-            &nbsp; <%= link_to 'Rooms', rooms_path(building_id: building.id), class: 'btn btn-sm btn-success' %>
+          <div style="text-align:right">
+            <%= link_to 'Show Rooms', rooms_path(building_id: building.id), class: 'btn btn-sm btn-primary' %>
           </div>
         </div>
       </div>

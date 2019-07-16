@@ -17,25 +17,27 @@
 <div class="container">
   <div class="row">
     <% @rooms.each do |room| %>
-      <div class="card" style="width:220px; height:270px; margin-bottom:2px">
-        <div class="card-header" style="width:220px; height:55px; background-color:rgba(0, 121, 203, 0.5);">
-          <div class="row" style="align-items:center">
-            <div class="col-2">
-              <% if room.active %>
-                <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
-              <% else %>
-                <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
-              <% end %>
-            </div>
-            <div class="col-10">
-              <% if room.name.size > 13 %>
-                <h5 style="font-size:1em; text-align:right"><strong><%= room.name %></strong></h5>
-              <% else %>
-                <h5 style="text-align:center"><strong><%= room.name %></strong></h5>
-              <% end %>
+      <div class="card" style="width:220px; height:270px; margin-bottom:2px; margin:0 auto;">
+        <a href="rooms/<%= room.id %>" style="text-decoration:none; color:#bce5ff;">
+          <div class="card-header" style="width:220px; height:55px; background-color:rgba(0, 121, 203, 0.5);">
+            <div class="row" style="align-items:center">
+              <div class="col-2">
+                <% if room.active %>
+                  <div><font color="green"><i class="far fa-check-circle fa-2x" title="The room is active"></i></font></div>
+                <% else %>
+                  <div><font color="darkred"><i class="far fa-times-circle fa-2x" title="The room is inactive"></i></font></div>
+                <% end %>
+              </div>
+              <div class="col-10">
+                <% if room.name.size > 13 %>
+                  <h5 style="font-size:1em; text-align:right"><strong><%= room.name %></strong></h5>
+                <% else %>
+                  <h5 style="text-align:center"><strong><%= room.name %></strong></h5>
+                <% end %>
+              </div>
             </div>
           </div>
-        </div>
+        </a>  
         <div class="card-body" style="margin-left:5px">
           <div>Building: <strong><%= room.building.name %></strong></div>
           <div>Floor: <strong><%= room.floor %></strong></div>
@@ -49,8 +51,7 @@
               <strong><font color="green">Available</font></strong>
             <% end %>
           </div><br>
-          <div style="text-align:center">
-          <%= link_to 'Show', room, class: 'btn btn-sm btn-info' %> &nbsp;
+          <div style="text-align:right">
           <%= link_to 'Reserve', new_reservation_path(room_id: room.id), class: 'btn btn-sm btn-primary' %></div>
         </div>
       </div>
