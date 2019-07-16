@@ -19,6 +19,15 @@ class RoomsController < ApplicationController
     end
   end
 
+  def occupancy
+    @occupancy_selected_in_nav = true
+    reserved_ids = []
+    Reservation.all.active.each do |r| reserved_ids.push(r.room_id) end
+    @rooms_reserved = Room.all.where(id: reserved_ids)
+    @rooms_not_reserved = Room.all.where.not(id: reserved_ids)
+  end
+  
+
   # GET /rooms/1
   # GET /rooms/1.json
   def show

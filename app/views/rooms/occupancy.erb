@@ -1,0 +1,46 @@
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1080px; text-align:center"><b>Unoccupied rooms (reserved)</b></h5>
+<div class="container" style="width:1080px;">
+  <div class="row">
+    <% @rooms_reserved.each do |room| %>
+      <% @status = room.status %>
+      <% if (!@status.nil? && !@status["is_occupied"]) %>
+        <div class="card" style="width:350px; margin:0 auto; margin-bottom:10px">
+          <a href="rooms/<%= room.id %>" style="text-decoration:none; color:#bce5ff;">
+            <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+              <h3 style="text-align:center"><strong><%= room.name %></strong></h3>
+            </div>
+          </a>
+          <a href="reservations/<%= room.reservations.active.first.id %>" style="text-decoration:none; color:#bce5ff;">
+            <div class="card-body" style="margin-left:15px">
+              <div>Reserved by: <strong><%= room.reservations.active.first.user.name %></strong></div>
+              <div>Reserved from: <strong><%= room.reservations.active.first.valid_from.to_formatted_s(:long) %></strong></div>
+              <div>Reserved until: <strong><%= room.reservations.active.first.valid_to.to_formatted_s(:long) %></strong></div>
+              <div>Occupied: <strong><font color="yellow"><%= @status["is_occupied"] %></font></strong></div>
+            </div>
+          </a>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div><br>
+<h5 class="container" style="background-color: #bce5ff; color:#42698f; opacity:0.7; width:1080px; text-align:center"><b>Occupied rooms (not reserved)</b></h5>
+<div class="container" style="width:1080px;">
+  <div class="row">
+    <% @rooms_not_reserved.each do |room| %>
+      <% @status = room.status %>
+      <% if (!@status.nil? && @status["is_occupied"]) %>
+        <a href="rooms/<%= room.id %>" style="text-decoration:none; color:#bce5ff; margin:0 auto;">
+          <div class="card" style="width:250px; margin-bottom:15px">
+            <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+              <h4 style="text-align:center"><strong><%= room.name %></strong></h4>
+            </div>
+            <div class="card-body" style="text-align:center">
+              <div>Estimated occupants: <strong><font color="yellow"><%= @status["estimated_occupants"] %></font></strong></div>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

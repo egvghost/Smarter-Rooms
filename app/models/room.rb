@@ -5,7 +5,7 @@ class Room < ApplicationRecord
 	has_many :users, through: :reservations
 	validates :name, presence: true
 	validates :code, uniqueness: true
-  paginates_per 15
+	paginates_per 15
 
 	def is_active?
 		self.active
@@ -18,5 +18,6 @@ class Room < ApplicationRecord
 			when response.status == 200 then JSON.parse(response.body)
 			when response.status == 404 then nil
 		end
-	end
+	end	
+
 end
