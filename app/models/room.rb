@@ -5,7 +5,7 @@ class Room < ApplicationRecord
 	has_many :users, through: :reservations
 	validates :name, presence: true
 	validates :code, uniqueness: true
-	paginates_per 15
+	paginates_per 10
 
 	def is_active?
 		self.active
