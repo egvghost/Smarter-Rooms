@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :buildings
   resources :users
   get '/occupancy', to: 'rooms#occupancy'
+  get '/statistics', to: 'reservations#statistics'
   get '/all_reservations', to: 'reservations#all'
   root 'static_pages#home'
   get '/about', to: 'static_pages#about'

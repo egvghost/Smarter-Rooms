@@ -56,6 +56,13 @@
             <a class="btn btn-outline-default" href="/occupancy" role="button">Occupancy</a>
           <% end %>
           </li>
+          <li class="nav-item">
+          <% if @statistics_selected_in_nav %>
+            <a class="btn btn-outline-primary" href="/statistics" role="button">Statistics</a>
+          <% else %>
+            <a class="btn btn-outline-default" href="/statistics" role="button">Statistics</a>
+          <% end %>
+          </li>
         <% end %>
         <li class="nav-item">
           <% if @about_selected_in_nav %>

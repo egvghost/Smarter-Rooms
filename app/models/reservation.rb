@@ -23,4 +23,14 @@ class Reservation < ApplicationRecord
     errors.add(:reservation, "There is an active reservation for this Room for the specified period.") if is_overlapping
   end
 
+  def timeframe
+    (self.valid_from..self.valid_to)
+  end
+  
+  #Returns all reservations from 'date'
+  def self.in_date(date)
+    where("date(valid_from) = ? OR date(valid_to) = ?", date, date)
+  end
+  
+
 end
