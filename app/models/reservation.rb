@@ -3,9 +3,10 @@ class Reservation < ApplicationRecord
   belongs_to :room
   validates :valid_to, presence: true
   validates :valid_from, presence: true
-  scope :scheduled, -> {where("valid_to > ?", Time.current)}
+  scope :scheduled, -> {where("valid_from > ?", Time.current)}
   scope :active, -> {where("valid_from <= ? AND valid_to >= ?", Time.current, Time.current)}
   scope :expired, -> {where("valid_to < ?", Time.current)}
+  scope :last_week, -> {where("valid_from >= ? AND valid_to <= ?", Time.current - 1.week, Time.current)}
   validate :period
   validate :period_overlaps
 
@@ -27,7 +28,7 @@ class Reservation < ApplicationRecord
     (self.valid_from..self.valid_to)
   end
   
-  #Returns all reservations from 'date'
+  #Returns all reservations in 'date'
   def self.in_date(date)
     where("date(valid_from) = ? OR date(valid_to) = ?", date, date)
   end
