@@ -10,12 +10,12 @@
             
             <div class="field">
               <%= form.label :start_time%>: 
-              <%= form.datetime_select :valid_from, default: 1.hours.from_now %>
+              <%= form.datetime_select :valid_from, default: 1.minute.from_now %>
             </div>
 
             <div class="field">
               <%= form.label :end_time %>: &nbsp;
-              <%= form.datetime_select :valid_to, default: 2.hours.from_now %>
+              <%= form.datetime_select :valid_to, default: 31.minutes.from_now %>
             </div>
             <br>
             <div class="field">
