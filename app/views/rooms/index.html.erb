@@ -42,16 +42,21 @@
           <div>Building: <strong><%= room.building.name %></strong></div>
           <div>Floor: <strong><%= room.floor %></strong></div>
           <div>Max capacity: <strong><%= room.max_capacity %></strong></div>
-          <% @status = room.status %>
-          <div>Status:
-            <% if @status.nil? %>
-              <i><font color="yellow">No information</font></i>
-            <% elsif @status["is_occupied"] %>
-              <strong><font color="darkred">Occupied</font></strong><br>
-           <% else %>
-              <strong><font color="green">Available</font></strong>
-            <% end %>
-          </div><br>
+          <% if current_user.is_admin? %>
+            <% @status = room.status %>
+            <div>Status:
+              <% if @status.nil? %>
+                <i><font color="yellow">No information</font></i>
+              <% elsif @status["is_occupied"] %>
+                <strong><font color="darkred">Occupied</font></strong><br>
+            <% else %>
+                <strong><font color="green">Available</font></strong>
+              <% end %>
+            </div>
+          <% else %>
+            <br>
+          <% end %>
+          <br>
           <div style="text-align:right">
           <%= link_to 'Reserve', new_reservation_path(room_id: room.id), class: 'btn btn-sm btn-primary' %></div>
         </div>
