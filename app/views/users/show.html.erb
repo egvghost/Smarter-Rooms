@@ -19,7 +19,7 @@
             </div><br>
             <div style="float:right">
                 <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-sm btn-info'  %>
-                <% if current_user.is_admin? %>
+                <% if current_user.is_admin? && current_user != @user %>
                   <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
                 <% end %>
               </div>
