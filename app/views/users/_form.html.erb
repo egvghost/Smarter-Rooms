@@ -19,7 +19,11 @@
     <br>
     <div class="field">
       <%= form.label :admin %>
-      <%= form.check_box :admin %><br>
+    <% if current_user == user %>
+        <%= form.check_box :admin, disabled: true %><br>
+    <% else %>
+        <%= form.check_box :admin %><br>
+    <% end %>
     </div>
   <% end %><br>
   <div class="actions" style="float:right">
