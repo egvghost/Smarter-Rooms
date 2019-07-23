@@ -1,14 +1,9 @@
 class ReservationsController < ApplicationController
   before_action :set_room, only: [:new, :create]
   before_action :verify_if_active_and_redirect_with_error_message_if_not, only: [:new, :create]
-  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:all]
+  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:all, :charts]
 
   def index
-  end
-
-  def all
-    @reservations_selected_in_nav = true
-    @reservations = Reservation.all
   end
 
   def show
@@ -60,6 +55,51 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def all
+    @reservations_selected_in_nav = true
+    @reservations = Reservation.all
+  end
+
+  def charts
+    @charts_selected_in_nav = true
+
+    #Rooms reservation percentage per day [Last week]
+    @chart1 = Room
+    .joins(:reservations)
+    .merge(Reservation.last_week.business_hours)
+    .group(:name)
+    .group("date(valid_from)")
+    .sum(:duration)
+    .map{|k,v| [k,(v/9*100).round(2)]}.to_h
+
+    #Average reservations per hour [Last month]
+    @chart2 = {}
+    for i in (9..18)
+      @chart2["#{i}:00"] = Reservation
+      .last_month
+      .business_hours
+      .reserved_in(i)
+      .count/5
+    end
+
+    #Users with more reservations in last 30 days
+    @chart3 = User
+    .joins(:reservations)
+    .merge(Reservation.last_month)
+    .group(:name)
+    .order('count_id desc')
+    .count('id')
+    .take(5)
+
+    #Rooms with more reservations in last 30 days
+    @chart4 = Room
+    .joins(:reservations)
+    .merge(Reservation.last_month)
+    .group(:name)
+    .order('count_id desc')
+    .count('id')
+    .take(5)
+  end
 
   private
   
