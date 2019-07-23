@@ -18,16 +18,7 @@ class RoomsController < ApplicationController
       @rooms = @paginated_rooms
     end
   end
-
-  def occupancy
-    @occupancy_selected_in_nav = true
-    reserved_ids = []
-    Reservation.all.active.each do |r| reserved_ids.push(r.room_id) end
-    @rooms_reserved = Room.all.where(id: reserved_ids)
-    @rooms_not_reserved = Room.all.where.not(id: reserved_ids)
-  end
   
-
   # GET /rooms/1
   # GET /rooms/1.json
   def show
@@ -95,6 +86,13 @@ class RoomsController < ApplicationController
       end
     end
   end
+
+  def occupancy
+    @occupancy_selected_in_nav = true
+    @rooms_reserved = Room.joins(:reservations).merge(Reservation.active)
+    @rooms_not_reserved = Room.without_active_reservation
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

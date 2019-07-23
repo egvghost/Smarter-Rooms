@@ -20,27 +20,8 @@ class Room < ApplicationRecord
 		end
 	end	
 
-	#Returns the time (in hours) the room was reserved in 'date'
-	def time_reserved(date)
-		@time_reserved = 0
-		self.reservations.all.where("date(valid_from) = ? OR date(valid_to) = ?", date, date).each do |reservation|
-			if reservation.valid_from.to_date < reservation.valid_to.to_date
-				if reservation.valid_from.to_date == date
-					@time_reserved += (date.at_end_of_day - reservation.valid_from)
-				elsif reservation.valid_to.to_date == date
-					@time_reserved += (reservation.valid_to - date.at_beginning_of_day)
-				end
-			else
-				@time_reserved += (reservation.valid_to - reservation.valid_from)
-			end
-		end
-		@time_reserved / 3600
+	def self.without_active_reservation
+		Room.all - Room.joins(:reservations).merge(Reservation.active)
 	end
-
-	#Returns all the rooms reserved in 'date'
-	def self.reserved(date)
-    joins(:reservations).where("date(valid_from) = ? OR date(valid_to) = ?", date, date)
-	end
-	
 
 end
