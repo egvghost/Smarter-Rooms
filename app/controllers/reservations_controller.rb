@@ -63,7 +63,7 @@ class ReservationsController < ApplicationController
   def charts
     @charts_selected_in_nav = true
 
-    #Rooms reservation percentage per day [Last week]
+    #Percentage of time reserved per room per day [Last week]
     @chart1 = Room
     .joins(:reservations)
     .merge(Reservation.last_week.business_hours)
@@ -72,17 +72,19 @@ class ReservationsController < ApplicationController
     .sum(:duration)
     .map{|k,v| [k,(v/9*100).round(2)]}.to_h
 
-    #Average reservations per hour [Last month]
+    #Percentage of rooms reserved per hour [Last month]
     @chart2 = {}
     for i in (9..18)
-      @chart2["#{i}:00"] = Reservation
+      @chart2["#{i}:00"] = ((Reservation
       .last_month
       .business_hours
       .reserved_in(i)
-      .count/5
+      .group(:room_id)
+      .count.count)
+      .to_f * 100/Room.count).round(2)
     end
 
-    #Users with more reservations in last 30 days
+    #Users with more reservations [Last month]
     @chart3 = User
     .joins(:reservations)
     .merge(Reservation.last_month)
@@ -91,7 +93,7 @@ class ReservationsController < ApplicationController
     .count('id')
     .take(5)
 
-    #Rooms with more reservations in last 30 days
+    #Rooms with more reservations [Last month]
     @chart4 = Room
     .joins(:reservations)
     .merge(Reservation.last_month)
