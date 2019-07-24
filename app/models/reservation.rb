@@ -9,9 +9,8 @@ class Reservation < ApplicationRecord
   scope :active, -> {where("valid_from <= ? AND valid_to >= ?", Time.current, Time.current)}
   scope :expired, -> {where("valid_to < ?", Time.current)}
   scope :business_hours, -> {where("cast(strftime('%H', valid_from) as int) IN (?) AND cast(strftime('%H', valid_to) as int) IN (?)", (9..17), (9..18))}
-  scope :last_weekday, -> {where("date(valid_from) = ?", Date.today.last_weekday)}
-  scope :last_week, -> {where("date(valid_from) >= ? AND date(valid_to) <= ?", Date.today.last_weekday - 1.week, Date.today.last_weekday)}
-  scope :last_month, -> {where("date(valid_from) >= ? AND date(valid_to) <= ?", Date.today.last_weekday - 30.days, Date.today.last_weekday)}
+  scope :last_week, -> {where("date(valid_from) >= ? AND date(valid_to) < ?", Date.today - 1.week, Date.today)}
+  scope :last_month, -> {where("date(valid_from) >= ? AND date(valid_to) < ?", Date.today - 1.month, Date.today)}
   validate :period
   validate :period_overlaps
 
