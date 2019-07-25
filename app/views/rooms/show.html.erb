@@ -53,13 +53,13 @@
         </div>
       </div>
     </div>
-    <% if @room.reservations.active.any? %>
+    <% if @room.reservations.not_expired.any? %>
       <div class="col">
         <div class="card" style="width:530px">
-          <h4 class="card-header" style="background-color:rgba(0, 121, 203, 0.5);"> Active reservations:</h4>
+          <h4 class="card-header" style="background-color:rgba(0, 121, 203, 0.5);"> &nbsp; Scheduled reservations:</h4>
           <div class="card-body">
             <ul><font size="2.5">
-            <% @room.reservations.active.sort_by {|item| item.valid_from}.take(10).each do |r| %>
+            <% @room.reservations.not_expired.sort_by {|item| item.valid_from}.take(10).each do |r| %>
               <li>From <%= r.valid_from %> - To <%= r.valid_to %></li>
             <% end %>
             </font></ul>

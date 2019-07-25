@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody style="background-color:rgba(0, 181, 255, 0.5)">
-    <% current_user.reservations.scheduled.sort_by {|item| item.id}.reverse.each do |reservation| %>
+    <% current_user.reservations.not_expired.sort_by {|item| item.valid_from}.each do |reservation| %>
       <tr>
         <td><%= link_to reservation.room.name, reservation.room, :style => "text-decoration:none; color:#bce5ff;" %></td>
         <td><%= reservation.valid_from.to_formatted_s(:long) %></td>
@@ -32,7 +32,7 @@
     </tr>
   </thead>
   <tbody style="background-color:rgba(0, 181, 255, 0.5)">
-    <% current_user.reservations.expired.sort_by {|item| item.id}.reverse.each do |reservation| %>
+    <% current_user.reservations.expired.sort_by {|item| item.valid_to}.reverse.each do |reservation| %>
       <tr>
         <td><%= link_to reservation.room.name, reservation.room, :style => "text-decoration:none; color:#bce5ff;"  %></td>
         <td><%= reservation.valid_from.to_formatted_s(:long) %></td>

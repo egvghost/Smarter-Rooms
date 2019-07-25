@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody style="background-color:rgba(0, 181, 255, 0.5)">
-    <% @reservations.active.sort_by {|item| item.id}.reverse.each do |reservation| %>
+    <% @reservations.active.sort_by {|item| item.valid_from}.each do |reservation| %>
       <tr>
         <td><%= link_to reservation.room.name, reservation.room, :style => "text-decoration:none; color:#bce5ff;"  %></td>
         <td><%= reservation.user.name %></td>
@@ -36,7 +36,7 @@
     </tr>
   </thead>
   <tbody style="background-color:rgba(0, 181, 255, 0.5)">
-    <% @reservations.scheduled.sort_by {|item| item.id}.reverse.each do |reservation| %>
+    <% @reservations.scheduled.sort_by {|item| item.valid_from}.each do |reservation| %>
       <tr>
         <td><%= link_to reservation.room.name, reservation.room, :style => "text-decoration:none; color:#bce5ff;"  %></td>
         <td><%= reservation.user.name %></td>
