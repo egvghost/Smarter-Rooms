@@ -2,13 +2,20 @@
 <div class="container" style="width:1080px;">
   <div class="row">
     <% @accessories.each do |accessory| %>
-      <a href="accessories/<%= accessory.id %>" style="text-decoration:none; color:#bce5ff; margin:0 auto;">
-        <div class="card" style="width:350px; margin-bottom:8px">
+      <div class="card" style="width:350px; margin-bottom:8px">
+        <a href="accessories/<%= accessory.id %>" style="text-decoration:none; color:#bce5ff;">
           <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
             <h3 style="text-align:center"><strong><%= accessory.name %></strong></h3>
           </div>
-        </div>
-      </a>
+        </a>
+        <div class="card-body">
+          <div style="text-align:center">Rooms with <%= accessory.name %>: 
+            <a href="/rooms?accessory_id=<%= accessory.id %>">
+              <strong><font color="yellow"><%= @rooms.where("accessory_id = ?", accessory.id).count %></font></strong>
+            </a>
+          </div>
+        </div>  
+      </div>
     <% end %>
   </div><br><br>
   <div class="row">

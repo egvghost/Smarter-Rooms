@@ -8,6 +8,10 @@ class RoomsController < ApplicationController
     @rooms_selected_in_nav = true
     @paginated_rooms = if params[:building_id]
       Room.all.where(building_id: params[:building_id]).page params[:page]
+    elsif params[:accessory_id]
+      Room.joins(:accessories).where("accessory_id = ?", params[:accessory_id].to_i).page params[:page]
+    elsif params[:floor]
+      Room.all.where(floor: params[:floor]).page params[:page]
     else 
       Room.all.page params[:page]
     end

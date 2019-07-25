@@ -11,9 +11,10 @@
         <div class="card-body">
           <div>Address: <strong><%= building.address %></strong></div>
           <div>Coordinates: <strong><%= building.coordinates %></strong></div><br>
-          <div>Rooms: <strong><%= building.rooms.count %></strong></div><br>
-          <div style="text-align:right">
-            <%= link_to 'Show Rooms', rooms_path(building_id: building.id), class: 'btn btn-sm btn-primary' %>
+          <div>Available rooms: 
+            <a href="/rooms?building_id=<%= building.id %>">
+              <strong><font color="yellow"><%= building.rooms.where(active: true).count %></font></strong>
+            </a>
           </div>
         </div>
       </div>

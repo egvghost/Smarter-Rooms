@@ -9,7 +9,11 @@
       <div class="card-body">
         <div>Address: <strong><%= @building.address %></strong></div>
         <div>Coordinates: <strong><%= @building.coordinates %></strong></div><br>
-        <div>Rooms: <strong><%= @building.rooms.count %></strong></div><br>
+        <div>Rooms: 
+          <a href="/rooms?building_id=<%= @building.id %>">
+            <strong><font color="yellow"><%= @building.rooms.where(active: true).count %></font></strong>
+          </a>
+        </div>
         <% if current_user.is_admin? %>
           <div style="float:right">
             <%= link_to 'Edit', edit_building_path(@building), class: 'btn btn-sm btn-info' %>

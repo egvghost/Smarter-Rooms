@@ -7,11 +7,13 @@ class AccessoriesController < ApplicationController
   def index
     @accessories_selected_in_nav = true
     @accessories = Accessory.all
+    @rooms = Room.joins(:accessories)
   end
 
   # GET /accessories/1
   # GET /accessories/1.json
   def show
+    @rooms = Room.joins(:accessories)
   end
 
   # GET /accessories/new

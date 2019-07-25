@@ -40,7 +40,13 @@
         </a>  
         <div class="card-body" style="margin-left:5px">
           <div>Building: <strong><%= room.building.name %></strong></div>
-          <div>Floor: <strong><%= room.floor %></strong></div>
+          <div>Floor: 
+            <strong>
+              <a href="/rooms?floor=<%= room.floor %>" style="color:#bce5ff;">
+                <strong><%= room.floor %></strong>
+              </a>
+            </strong>
+          </div>
           <div>Max capacity: <strong><%= room.max_capacity %></strong></div>
           <% if current_user.is_admin? %>
             <% @status = room.status %>
