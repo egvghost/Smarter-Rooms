@@ -62,6 +62,9 @@ class RoomsController < ApplicationController
   # PATCH/PUT /rooms/1
   # PATCH/PUT /rooms/1.json
   def update
+    if room_params[:active]!='1' && @room.reservations.not_expired.any?
+      flash[:warning] = "Room is now deactivated. However all existing reservations will still be valid."
+    end
     respond_to do |format|
       if @room.update(room_params)
         flash[:success] = "Room information was successfully updated."
@@ -78,7 +81,7 @@ class RoomsController < ApplicationController
   # DELETE /rooms/1
   # DELETE /rooms/1.json
   def destroy
-    if @room.reservations.any?
+    if @room.reservations.scheduled.any?
       flash[:warning] = "A room with active reservations cannot be deleted."
       redirect_to @room
     else
