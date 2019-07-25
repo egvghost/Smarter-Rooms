@@ -6,10 +6,10 @@
       <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
           <h3 style="text-align:center"><strong><%= @accessory.name %></strong></h3>
       </div>
-      <div class="card-body" style="margin-left:20px">
-        <div>Rooms with <%= @accessory.name %>: 
+      <div class="card-body">
+        <div>Available rooms with <%= @accessory.name %>: 
           <a href="/rooms?accessory_id=<%= @accessory.id %>">
-            <strong><font color="yellow"><%= @rooms.where("accessory_id = ?", @accessory.id).count %></font></strong>
+            <strong><font color="yellow"><%= @rooms.where(active: true).where("accessory_id = ?", @accessory.id).count %></font></strong>
           </a>
         </div><br>
         <% if current_user.is_admin? %>

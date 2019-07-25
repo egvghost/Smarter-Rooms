@@ -9,9 +9,9 @@
           </div>
         </a>
         <div class="card-body">
-          <div style="text-align:center">Rooms with <%= accessory.name %>: 
+          <div style="text-align:center">Available rooms with <%= accessory.name %>: 
             <a href="/rooms?accessory_id=<%= accessory.id %>">
-              <strong><font color="yellow"><%= @rooms.where("accessory_id = ?", accessory.id).count %></font></strong>
+              <strong><font color="yellow"><%= @rooms.where(active: true).where("accessory_id = ?", accessory.id).count %></font></strong>
             </a>
           </div>
         </div>  
