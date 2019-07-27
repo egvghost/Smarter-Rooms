@@ -103,6 +103,42 @@ class ReservationsController < ApplicationController
     .take(5)
   end
 
+  def schedule
+    #byebug
+    @building_id = params[:reservation][:building_id].to_i
+    @attendants = params[:reservation][:attendants].to_i
+    #@equipment = params[:reservation][:accessory_ids]
+    params[:reservation].delete(:building_id)
+    #params[:reservation].delete(:accessory_ids)
+    @reservation = Reservation.new(reservation_params)
+    @rooms = Room
+    .where(active: true)
+    .where(building_id: @building_id)
+    .where("max_capacity >= ?", @attendants)
+    #.joins(:accessories)
+    #.where("accessory_id IN (?)", @equipment)
+    byebug
+    render "static_pages/home"
+  end
+  
+  def reserve
+    @reservation = Reservation.new
+    @reservation.valid_from = params[:valid_from]
+    @reservation.valid_to = params[:valid_to]
+    @reservation.attendants = params[:attendants]
+    @reservation.room_id = reservation_params[:room_id].to_i
+    @reservation.user = current_user
+
+    if @reservation.save
+      flash[:success] = "You have successfully reserved room '#{@reservation.room.name}'."
+      redirect_to @reservation
+    else
+      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.full_messages.first}"
+      redirect_back fallback_location: "static_pages/home"
+    end
+  end
+  
+
   private
   
   def set_room

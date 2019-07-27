@@ -24,4 +24,9 @@ class Room < ApplicationRecord
 		Room.all - Room.joins(:reservations).merge(Reservation.active)
 	end
 
+	def drop_down
+		"#{self.name} - Floor: #{self.floor} - Max. capacity: #{self.max_capacity} - Equipment: #{self.accessories.map{|a| a.name}}"
+	end
+	
+
 end

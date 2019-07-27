@@ -1,9 +1,44 @@
-<h1>Smarter Rooms</h1>
-<p>
-<% if logged_in? %>
-  <%= link_to "Profile", current_user, :class => "btn btn-sm btn-info" %>
-  <%= link_to "Log out", logout_path, method: :delete, :class => "btn btn-sm btn-dark" %>
-<% else %>
-  <%= link_to "Log in", login_path, :class => "btn btn-sm btn-success" %>
-<% end %>
-</p>
+<h1 style="text-align:center">Smarter Rooms</h1>
+<br>
+<div class="container" style="width:1000px">
+  <div class="row" style="align-items:center">
+    <div class="col"> 
+      <% if logged_in? %>
+        <div class="card" style="width:820px">
+          <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+            <h3 style="text-align:center">Schedule reservation</h3>
+          </div>
+          <div class="card-body" style="margin:auto">
+            <div class="container">
+              <%= render "reservations/schedule_form" %>
+            </div>
+          </div>
+        </div><>
+        <% if !@rooms.nil? %>
+          <div class="card" style="width:820px">
+            <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+              <h3 style="text-align:center">Available rooms (<%= @rooms.count %>)</h3>
+            </div>
+            <div class="card-body" style="margin:auto">
+              <div class="container">
+                <%= render "reservations/rooms_form" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="card" style="width:400px">
+          <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
+            <h3 style="text-align:center">Log in</h3>
+          </div>
+          <div class="card-body" style="margin:auto">
+            <div class="container">
+              <%= render "sessions/form" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br><br><br><br><br>

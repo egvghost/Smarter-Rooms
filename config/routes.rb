@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :reservations, only: [:index, :show, :new, :create, :destroy]
+  resources :reservations#, only: [:index, :show, :new, :create, :destroy]
   resources :accessories
   resources :rooms
   resources :buildings
@@ -13,5 +13,8 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create' 
   delete '/logout', to: 'sessions#destroy'
+  #get '/reserve', to: 'reservations#reserve'
+  post '/home', to: 'reservations#schedule' 
+  post '/reserve', to: 'reservations#reserve' 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

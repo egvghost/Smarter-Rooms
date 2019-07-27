@@ -1,0 +1,15 @@
+<%= form_with scope: :reservation, url: reserve_path do |form| %>
+  <%= hidden_field_tag(:building_id, @building) %>
+  <%= hidden_field_tag(:attendants, @attendants) %>
+  <%= hidden_field_tag(:valid_from, @reservation.valid_from) %>
+  <%= hidden_field_tag(:valid_to, @reservation.valid_to) %>
+  
+  <div class="field">
+    <%= form.label :room %><br>
+    <%= form.collection_select(:room_id, @rooms, :id, :drop_down) %>
+  </div>
+  <div style="float: right;">
+    <%= form.submit "Confirm", class: 'btn btn-sm btn-success' %>
+  </div>
+  <br><br>
+<% end %>

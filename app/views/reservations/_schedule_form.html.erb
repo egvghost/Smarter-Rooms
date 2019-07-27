@@ -1,0 +1,56 @@
+<%= form_with scope: :reservation, url: home_path do |form| %>
+  <div class="row">
+    <div class="col-4">
+      <%= form.label :building %><br>
+      <% if @rooms.blank? %>
+        <%= form.collection_select(:building_id, Building.all, :id, :name) %>
+      <% else %>
+        <%= form.collection_select(:building_id, Building.all, :id, :name, {:selected => @building_id}, { class: "form-control", :disabled => "disabled" }) %>
+      <% end %>
+    </div>
+    <div class="col-8">
+      <div class="field" style="float:right">
+        <%= form.label :start_time%> 
+        <% if @rooms.blank? %>
+          <%= form.datetime_select :valid_from, default: 1.minute.from_now %>
+        <% else %>
+          <%= form.datetime_select(:valid_from, {:selected => @reservation.valid_from}, { class: "form-control", :disabled => "disabled" }) %>
+        <% end %>
+      </div>
+      <div class="field" style="float:right">
+        <%= form.label :end_time %> &nbsp;
+        <% if @rooms.blank? %>
+          <%= form.datetime_select :valid_to, default: 31.minutes.from_now %>
+        <% else %>
+          <%= form.datetime_select(:valid_to, {:selected => @reservation.valid_to}, { class: "form-control", :disabled => "disabled" }) %>
+        <% end %>
+      </div>
+    </div>
+  </div><br>
+  <div class="row">
+    <div class="col-4">
+      <div class="field">
+        <%= form.label :expected_attendants %><br>
+        <% if @rooms.blank? %>
+          <%= form.number_field :attendants, min: 0 %>
+        <% else %>
+          <%= form.number_field :attendants, :value => @reservation.attendants, :disabled => "disabled" %>
+        <% end %>  
+      </div>
+    </div>
+    <%# <div class="col-8">
+      <div class="check-box checkbox-margin"> &nbsp;
+        <%= form.label :required_equipment %><br> &nbsp;
+        <%# <%= form.collection_check_boxes(:accessory_ids, Accessory.all, :id, :name) %>
+      <%# </div>
+    </div> %>
+  </div>
+  <br>
+  <div class="actions" style="float:right">
+    <% if @rooms.blank? %>
+      <%= form.submit "Search rooms" %>
+    <% else %>
+      <%= form.submit "Search rooms", :disabled => "disabled" %>
+    <% end %>
+  </div>
+<% end %>
