@@ -41,7 +41,7 @@ class ReservationsController < ApplicationController
       flash[:success] = "You have successfully reserved room '#{@room.name}'."
       redirect_to @reservation
     else
-      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.full_messages.first}"
+      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.messages.first.last.first}"
       redirect_back fallback_location: rooms_path
     end
   end
@@ -104,7 +104,6 @@ class ReservationsController < ApplicationController
   end
 
   def schedule
-    #byebug
     @building_id = params[:reservation][:building_id].to_i
     @attendants = params[:reservation][:attendants].to_i
     #@equipment = params[:reservation][:accessory_ids]
@@ -116,8 +115,8 @@ class ReservationsController < ApplicationController
     .where(building_id: @building_id)
     .where("max_capacity >= ?", @attendants)
     #.joins(:accessories)
-    #.where("accessory_id IN (?)", @equipment)
-    byebug
+    #.where("accessory_id IN (?)", @equipment) #must be fixed to include only rooms with required equipment
+    ##add additional queries to filter for rooms without reservations in the selected timeframe
     render "static_pages/home"
   end
   
@@ -133,8 +132,8 @@ class ReservationsController < ApplicationController
       flash[:success] = "You have successfully reserved room '#{@reservation.room.name}'."
       redirect_to @reservation
     else
-      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.full_messages.first}"
-      redirect_back fallback_location: "static_pages/home"
+      flash[:danger] = "There was an error performing the operation. #{@reservation.errors.messages.first.last.first}"
+      redirect_to :controller => 'static_pages', :action => 'home' 
     end
   end
   
@@ -142,6 +141,7 @@ class ReservationsController < ApplicationController
   private
   
   def set_room
+    byebug
     @room = Room.find(params[:room_id])
   end
 

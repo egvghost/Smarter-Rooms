@@ -26,7 +26,7 @@ class Reservation < ApplicationRecord
     is_overlapping = Reservation.where(room: room).any? do |r|
       (r.valid_from...r.valid_to).overlaps?(self.valid_from...self.valid_to)
     end
-    errors.add(:reservation, "There is an active reservation for this Room for the specified period.") if is_overlapping
+    errors.add(:reservation, "There is an active reservation for this Room in the specified period.") if is_overlapping
   end
 
   def self.reserved_in(time)

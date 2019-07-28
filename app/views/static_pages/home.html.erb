@@ -1,4 +1,4 @@
-<h1 style="text-align:center">Smarter Rooms</h1>
+<h1 style="text-align:center"><font style="color:#537fa8"><strong>Smarter Rooms</strong></font></h1>
 <br>
 <div class="container" style="width:1000px">
   <div class="row" style="align-items:center">
@@ -6,24 +6,26 @@
       <% if logged_in? %>
         <div class="card" style="width:820px">
           <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
-            <h3 style="text-align:center">Schedule reservation</h3>
+            <h3 style="text-align:center;">Schedule reservation</h3>
           </div>
           <div class="card-body" style="margin:auto">
             <div class="container">
               <%= render "reservations/schedule_form" %>
             </div>
           </div>
-        </div><>
+        </div><br>
         <% if !@rooms.nil? %>
           <div class="card" style="width:820px">
             <div class="card-header" style="background-color:rgba(0, 121, 203, 0.5);">
               <h3 style="text-align:center">Available rooms (<%= @rooms.count %>)</h3>
             </div>
-            <div class="card-body" style="margin:auto">
-              <div class="container">
-                <%= render "reservations/rooms_form" %>
+            <% if !@rooms.blank? %>
+              <div class="card-body" style="margin:auto">
+                <div class="container">
+                  <%= render "reservations/reserve_form" %>
+                </div>
               </div>
-            </div>
+            <% end %>
           </div>
         <% end %>
       <% else %>

@@ -1,11 +1,11 @@
-<%= form_with scope: :reservation, url: home_path do |form| %>
+<%= form_with scope: :reservation, url: schedule_path do |form| %>
   <div class="row">
     <div class="col-4">
       <%= form.label :building %><br>
       <% if @rooms.blank? %>
         <%= form.collection_select(:building_id, Building.all, :id, :name) %>
       <% else %>
-        <%= form.collection_select(:building_id, Building.all, :id, :name, {:selected => @building_id}, { class: "form-control", :disabled => "disabled" }) %>
+        <%= form.collection_select(:building_id, Building.all, :id, :name, {:selected => @building_id}, { :disabled => "disabled" }) %>
       <% end %>
     </div>
     <div class="col-8">
@@ -14,7 +14,7 @@
         <% if @rooms.blank? %>
           <%= form.datetime_select :valid_from, default: 1.minute.from_now %>
         <% else %>
-          <%= form.datetime_select(:valid_from, {:selected => @reservation.valid_from}, { class: "form-control", :disabled => "disabled" }) %>
+          <%= form.datetime_select(:valid_from, {:selected => @reservation.valid_from}, { :disabled => "disabled" }) %>
         <% end %>
       </div>
       <div class="field" style="float:right">
@@ -22,7 +22,7 @@
         <% if @rooms.blank? %>
           <%= form.datetime_select :valid_to, default: 31.minutes.from_now %>
         <% else %>
-          <%= form.datetime_select(:valid_to, {:selected => @reservation.valid_to}, { class: "form-control", :disabled => "disabled" }) %>
+          <%= form.datetime_select(:valid_to, {:selected => @reservation.valid_to}, { :disabled => "disabled" }) %>
         <% end %>
       </div>
     </div>
@@ -45,12 +45,11 @@
       <%# </div>
     </div> %>
   </div>
-  <br>
   <div class="actions" style="float:right">
     <% if @rooms.blank? %>
-      <%= form.submit "Search rooms" %>
+      <%= form.submit "Search rooms", class: 'btn btn-sm btn-primary' %>
     <% else %>
-      <%= form.submit "Search rooms", :disabled => "disabled" %>
+      <%= form.submit "Search rooms", :disabled => "disabled", class: 'btn btn-sm btn-primary' %>
     <% end %>
   </div>
 <% end %>

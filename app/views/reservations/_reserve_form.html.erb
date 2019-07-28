@@ -5,11 +5,10 @@
   <%= hidden_field_tag(:valid_to, @reservation.valid_to) %>
   
   <div class="field">
-    <%= form.label :room %><br>
     <%= form.collection_select(:room_id, @rooms, :id, :drop_down) %>
-  </div>
-  <div style="float: right;">
-    <%= form.submit "Confirm", class: 'btn btn-sm btn-success' %>
+  </div><br>
+  <div class="actions" style="float:right">
+    <%= form.submit "Reserve", class: 'btn btn-sm btn-success' %>
   </div>
   <br><br>
 <% end %>
