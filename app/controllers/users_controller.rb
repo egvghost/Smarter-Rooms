@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     params[:user].delete(:admin) if current_user == @user
-    params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
+    #params[:user].delete(:password_confirmation) if params[:user][:password_confirmation].blank?
     respond_to do |format|
       if @user.update(user_params)
         flash[:success] = "User information was successfully updated."

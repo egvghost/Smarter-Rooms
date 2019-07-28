@@ -39,10 +39,9 @@
           </div>
       </div>
     </div>
-  </div>
-  <br><br><br>
-  <%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-success'%>
+  </div><br>
+  <%= link_to "My Reservations", reservations_path, class: 'btn btn-sm btn-primary'%>
   <% if current_user.is_admin? %>
     <%= link_to 'Room info', @room, class: 'btn btn-sm btn-info' %>
   <% end %>
-</div>
+</div><br>

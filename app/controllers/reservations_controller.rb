@@ -141,7 +141,6 @@ class ReservationsController < ApplicationController
   private
   
   def set_room
-    byebug
     @room = Room.find(params[:room_id])
   end
 

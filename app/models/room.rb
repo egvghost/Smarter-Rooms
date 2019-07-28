@@ -5,7 +5,7 @@ class Room < ApplicationRecord
 	has_many :users, through: :reservations
 	validates :name, presence: true
 	validates :code, uniqueness: true
-	paginates_per 10
+	paginates_per 15
 
 	def is_active?
 		self.active
@@ -27,6 +27,5 @@ class Room < ApplicationRecord
 	def drop_down
 		"#{self.name} - Floor: #{self.floor} - Max. capacity: #{self.max_capacity} - Equipment: #{self.accessories.map{|a| a.name}}"
 	end
-	
 
 end
