@@ -11,4 +11,10 @@ class User < ApplicationRecord
 	def is_admin? 
 		self.admin
 	end
+
+	def switch_role
+		role = self.admin
+		self.update_attribute("admin", !role)
+	end
+	
 end

@@ -17,12 +17,17 @@
                 Administrator role: <strong><font color="yellow"><%= @user.admin %></font></strong>
               </div>
             </div><br>
-            <div style="float:right">
+            <div class="row" style="float:right">
+              <% if current_user == @user %>
                 <%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-sm btn-info'  %>
-                <% if current_user.is_admin? && current_user != @user %>
-                  <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
-                <% end %>
-              </div>
+              <% elsif current_user.is_admin? %>
+                <%= form_with scope: :users, url: switch_role_path do |f| %>
+                  <%= hidden_field_tag(:id, @user.id) %>
+                  <%= f.submit "Switch role", data: { confirm: 'The user role will be changed: Are you sure?' }, class: 'btn btn-sm btn-warning' %>
+                <% end %> &nbsp;
+                <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

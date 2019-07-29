@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   post '/schedule', to: 'reservations#schedule' 
   post '/reserve', to: 'reservations#reserve' 
+  post '/switch_role', to: 'users#switch_role' 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

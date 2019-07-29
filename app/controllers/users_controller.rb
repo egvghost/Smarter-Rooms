@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :switch_role]
   before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:index, :destroy]
 	skip_before_action :logged_in_user, only: [:new, :create]
 
@@ -84,6 +84,21 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def switch_role
+    respond_to do |format|
+      if @user.switch_role
+        flash[:success] = "User role was successfully updated. Admin role is now: #{@user.admin}"
+        format.html { redirect_to @user }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        flash[:danger] = "There was an error performing the operation. #{@user.errors.full_messages.first}"
+        format.html { redirect_back fallback_location: @user }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.
