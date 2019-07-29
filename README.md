@@ -13,15 +13,13 @@ To start using Smarter Rooms, run these commands in order:<br>
     <li>'bundle install'</li>
   </ul>
   </li>
+  <li>Database creation/initialization:
   <ul>
-    <li>Database creation/initialization:
-    <ul>
-      <li>'rails db:create'</li>
-      <li>'rails db:migrate'</li>
-      <li>'rails db:seed'</li>
-    </ul>
-    </li>
+    <li>'rails db:create'</li>
+    <li>'rails db:migrate'</li>
+    <li>'rails db:seed'</li>
   </ul>
+  </li>
 </ul>
 <br>
 This initial setup creates a default administrator:
