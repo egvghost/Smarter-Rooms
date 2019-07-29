@@ -8,7 +8,9 @@ Administrators will have additional functionalities, such as create/edit/delete 
 
 To start using Smarter Rooms, run these commands in order:<br>
 -Add all gems dependencies:
-<ul><li>'bundle install'</li></ul>
+<ul>
+  <li>'bundle install'</li>
+</ul>
 -Database creation/initialization:
 <ul>
   <li>'rails db:create'</li>
