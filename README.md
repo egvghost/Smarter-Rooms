@@ -6,7 +6,7 @@ Users can make reservations even from the Home view or the Rooms views, and list
 
 Administrators will have additional functionalities, such as create/edit/delete Buildings, Rooms and Accessories, Users and reservations. They will also have a detailed Rooms' dashboard to check their status in real time, plus an Occupancy section, to validate reservations not being used or rooms used without reservation. The Charts section will provide statistics for the last week/month on specific topics, for trends analysis to allow a better understanding and planning of IBM's infrastructure use.
 
-To start using Smarter Rooms, run these commands in order:
+To start using Smarter Rooms, run these commands in order:<br>
 -Add all gems dependencies:
 <ul><li>'bundle install'</li></ul>
 -Database creation/initialization:
@@ -23,7 +23,7 @@ This initial setup creates a default administrator:
   <li>password: "Passw0rd"</li>
 </ul>
 <br>
-Technical requirements:
+Technical requirements:<br>
 -Ruby version:
 <ul><li>ruby '2.4.1'</li></ul>
 -Gems dependencies:
@@ -50,4 +50,5 @@ Future improvements:
   <li>Add a Datepicker</li>
   <li>Fix 'Turbolinks' issue on Home view form</li>
   <li>Enhance available rooms query for Home view form to include ONLY rooms without scheduled reservations in selected timeframe, plus validate equipment requirements.</li>
+  <li>Add a dropdown menu in Charts view to dinamically choose the required period for statistics.</li>
 </ul>
