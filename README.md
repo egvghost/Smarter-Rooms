@@ -7,27 +7,27 @@ Users can make reservations even from the Home view or the Rooms views, and list
 Administrators will have additional functionalities, such as create/edit/delete Buildings, Rooms and Accessories, Users and reservations. They will also have a detailed Rooms' dashboard to check their status in real time, plus an Occupancy section, to validate reservations not being used or rooms used without reservation. The Charts section will provide statistics for the last week/month on specific topics, for trends analysis to allow a better understanding and planning of IBM's infrastructure use.
 
 To start using Smarter Rooms, run these commands in order:
-* Add all gems dependencies:
+- Add all gems dependencies:
 <ul><li>'bundle install'</li></ul>
-* Database creation/initialization:
+- Database creation/initialization:
 <ul>
   <li>'rails db:create'</li>
   <li>'rails db:migrate'</li>
   <li>'rails db:seed'</li>
 </ul>
-
-This initial setup creates a default administrator:
+<br>
+- This initial setup creates a default administrator:
 <ul>
   <li>name: "Administrator"</li>
   <li>email: "admin@admin.com"</li>
   <li>password: "Passw0rd"</li>
 </ul>
-
-
+<br>
+<br>
 Technical requirements:
-* Ruby version:
+- Ruby version:
 <ul><li>ruby '2.4.1'</li></ul>
-* Gems dependencies:
+- Gems dependencies:
 <ul>
   <li>rails v5.2.3</li>
   <li>sqlite3</li>
@@ -45,8 +45,8 @@ Technical requirements:
   <li>kaminari</li>
   <li>chartkick</li>
 </ul>
-
-
+<br>
+<br>
 Future improvements:
 <ul>
   <li>Add a Datepicker</li>
