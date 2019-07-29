@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :switch_role]
-  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:index, :destroy]
+  before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:index, :destroy, :switch_role]
 	skip_before_action :logged_in_user, only: [:new, :create]
 
   # GET /users
