@@ -8,35 +8,48 @@ Administrators will have additional functionalities, such as create/edit/delete 
 
 To start using Smarter Rooms, run these commands in order:
 * Add all gems dependencies:
-'bundle install'
+<ul><li>'bundle install'</li></ul>
 * Database creation/initialization:
-'rails db:create'
-'rails db:migrate'
-'rails db:seed'
+<ul>
+  <li>'rails db:create'</li>
+  <li>'rails db:migrate'</li>
+  <li>'rails db:seed'</li>
+</ul>
 
 This initial setup creates a default administrator:
-name: "Administrator"
-email: "admin@admin.com"
-password: "Passw0rd"
+<ul>
+  <li>name: "Administrator"</li>
+  <li>email: "admin@admin.com"</li>
+  <li>password: "Passw0rd"</li>
+</ul>
 
 
 Technical requirements:
 * Ruby version:
-ruby '2.4.1'
+<ul><li>ruby '2.4.1'</li></ul>
 * Gems dependencies:
-rails v5.2.3
-sqlite3
-puma v3.11
-sass-rails v5.0
-uglifier v1.3.0
-coffee-rails v4.2
-turbolinks v5
-jbuilder v2.5
-bcrypt v3.1.7
-faraday v0.15.4
-bootstrap v4.3.1
-jquery-rails
-font-awesome-sass v5.8.1
-kaminari
-chartkick
+<ul>
+  <li>rails v5.2.3</li>
+  <li>sqlite3</li>
+  <li>puma v3.11</li>
+  <li>sass-rails v5.0</li>
+  <li>uglifier v1.3.0</li>
+  <li>coffee-rails v4.2</li>
+  <li>turbolinks v5</li>
+  <li>jbuilder v2.5</li>
+  <li>bcrypt v3.1.7</li>
+  <li>faraday v0.15.4</li>
+  <li>bootstrap v4.3.1</li>
+  <li>jquery-rails</li>
+  <li>font-awesome-sass v5.8.1</li>
+  <li>kaminari</li>
+  <li>chartkick</li>
+</ul>
 
+
+Future improvements:
+<ul>
+  <li>Add a Datepicker</li>
+  <li>Fix 'Turbolinks' issue on Home view form</li>
+  <li>Enhance available rooms query for Home view form to include ONLY rooms without scheduled reservations in selected timeframe, plus validate equipment requirements.</li>
+</ul>
