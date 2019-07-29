@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(pwd)
       flash[:success] = "Successful login."
       log_in user
-      redirect_to user
+      redirect_to :controller => 'static_pages', :action => 'home' 
     else
       flash[:danger] = "Invalid email/password combination."
       redirect_to login_url
