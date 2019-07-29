@@ -63,6 +63,14 @@
             <a class="btn btn-outline-default" href="/charts" role="button">Charts</a>
           <% end %>
           </li>
+        <% else %>
+          <li class="nav-item">
+          <% if @reservations_selected_in_nav %>
+            <a class="btn btn-outline-primary" href="/reservations" role="button">Reservations</a>
+          <% else %>
+            <a class="btn btn-outline-default" href="/reservations" role="button">Reservations</a>
+          <% end %>
+          </li>
         <% end %>
         <li class="nav-item">
           <% if @about_selected_in_nav %>

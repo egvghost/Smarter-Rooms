@@ -4,6 +4,7 @@ class ReservationsController < ApplicationController
   before_action :verify_if_admin_and_redirect_with_error_message_if_not, only: [:all, :charts]
 
   def index
+    @reservations_selected_in_nav = true
   end
 
   def show
