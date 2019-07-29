@@ -7,15 +7,21 @@ Users can make reservations even from the Home view or the Rooms views, and list
 Administrators will have additional functionalities, such as create/edit/delete Buildings, Rooms and Accessories, Users and reservations. They will also have a detailed Rooms' dashboard to check their status in real time, plus an Occupancy section, to validate reservations not being used or rooms used without reservation. The Charts section will provide statistics for the last week/month on specific topics, for trends analysis to allow a better understanding and planning of IBM's infrastructure use.
 
 To start using Smarter Rooms, run these commands in order:<br>
--Add all gems dependencies:
 <ul>
-  <li>'bundle install'</li>
-</ul>
--Database creation/initialization:
-<ul>
-  <li>'rails db:create'</li>
-  <li>'rails db:migrate'</li>
-  <li>'rails db:seed'</li>
+  <li>Add all gems dependencies:
+  <ul>
+    <li>'bundle install'</li>
+  </ul>
+  </li>
+  <ul>
+    <li>Database creation/initialization:
+    <ul>
+      <li>'rails db:create'</li>
+      <li>'rails db:migrate'</li>
+      <li>'rails db:seed'</li>
+    </ul>
+    </li>
+  </ul>
 </ul>
 <br>
 This initial setup creates a default administrator:
@@ -26,25 +32,31 @@ This initial setup creates a default administrator:
 </ul>
 <br>
 Technical requirements:<br>
--Ruby version:
-<ul><li>ruby '2.4.1'</li></ul>
--Gems dependencies:
 <ul>
-  <li>rails v5.2.3</li>
-  <li>sqlite3</li>
-  <li>puma v3.11</li>
-  <li>sass-rails v5.0</li>
-  <li>uglifier v1.3.0</li>
-  <li>coffee-rails v4.2</li>
-  <li>turbolinks v5</li>
-  <li>jbuilder v2.5</li>
-  <li>bcrypt v3.1.7</li>
-  <li>faraday v0.15.4</li>
-  <li>bootstrap v4.3.1</li>
-  <li>jquery-rails</li>
-  <li>font-awesome-sass v5.8.1</li>
-  <li>kaminari</li>
-  <li>chartkick</li>
+  <li>Ruby version:
+    <ul>
+      <li>ruby '2.4.1'</li>
+    </ul>
+    </li>
+  <li>Gems dependencies:
+  <ul>
+    <li>rails v5.2.3</li>
+    <li>sqlite3</li>
+    <li>puma v3.11</li>
+    <li>sass-rails v5.0</li>
+    <li>uglifier v1.3.0</li>
+    <li>coffee-rails v4.2</li>
+    <li>turbolinks v5</li>
+    <li>jbuilder v2.5</li>
+    <li>bcrypt v3.1.7</li>
+    <li>faraday v0.15.4</li>
+    <li>bootstrap v4.3.1</li>
+    <li>jquery-rails</li>
+    <li>font-awesome-sass v5.8.1</li>
+    <li>kaminari</li>
+    <li>chartkick</li>
+  </ul>
+  </li>
 </ul>
 <br>
 Future improvements:
